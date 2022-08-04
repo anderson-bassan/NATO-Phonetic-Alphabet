@@ -33,7 +33,7 @@ public class Nato {
     }
 
     public void show_random_letter() {
-        System.out.printf("What is the word for the letter %s (to exit type exit): ", get_random_letter());
+        System.out.printf("What is the word for the symbol %s (to exit type exit): ", get_random_letter());
     }
 
     public void increase_points() {
@@ -45,7 +45,11 @@ public class Nato {
     }
 
     public void show_current_points() {
-        System.out.printf("Your current points are: %d%n", points);
+        System.out.printf("Your current points are: %d%n%n", points);
+    }
+
+    public String get_nato_word() {
+        return nato_alphabet[random_index];
     }
 
     public boolean play() {
@@ -61,7 +65,12 @@ public class Nato {
             decrease_points();
         }
 
-        System.out.println((get_nato_index(input_word) == get_random_index()) ? "Hooray!" : "That's wrong");
+        if (get_nato_index(input_word) == get_random_index()) {
+            System.out.printf("%nHooray!%n");
+        } else {
+            System.out.printf("%nThat's wrong. The correct answer is %s.%n", get_nato_word());
+        }
+
         show_current_points();
         return true;
     }
