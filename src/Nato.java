@@ -60,15 +60,11 @@ public class Nato {
         if (input_word.equals("exit")) return false;
 
         if (get_nato_index(input_word) == get_random_index()) {
+            System.out.printf("%nHooray!%n");
             increase_points();
         } else {
-            decrease_points();
-        }
-
-        if (get_nato_index(input_word) == get_random_index()) {
-            System.out.printf("%nHooray!%n");
-        } else {
             System.out.printf("%nThat's wrong. The correct answer is %s.%n", get_nato_word());
+            decrease_points();
         }
 
         show_current_points();
