@@ -15,6 +15,10 @@ technically a radiotelephonic spelling alphabet.
 
 It's commonly used in armies, airports and in situations where people from different parts of the world need to communicate without spelling mistakes.
 
+## Downloads
+### Windows 
+[Nato.exe](Nato.exe)
+
 ## How Compile It to a Jar File
 
 ### In Windows:
