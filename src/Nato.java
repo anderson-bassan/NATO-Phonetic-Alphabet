@@ -7,48 +7,48 @@ public class Nato {
     private int random_index;
     private int points;
 
-    public int get_nato_index(String word) {
+    private int get_nato_index(String word) {
         for (int i = 0; i < nato_alphabet.length; i++) if (nato_alphabet[i].equals(word)) return i;
         return -1;
     }
 
-    public String get_input_word() {
+    private String get_input_word() {
         Scanner input_word = new Scanner(System.in);
         return input_word.nextLine().toLowerCase();
     }
 
-    public void set_random_index() {
+    private void set_random_index() {
         random_index = (int) (Math.random() * alphabet.length);
     }
-    public int get_random_index() {
+    private int get_random_index() {
         return random_index;
     }
 
-    public void randomize() {
+    private void randomize() {
         set_random_index();
     }
 
-    public String get_random_letter() {
+    private String get_random_letter() {
         return alphabet[get_random_index()];
     }
 
-    public void show_random_letter() {
+    private void show_random_letter() {
         System.out.printf("What is the word for the symbol %s (to exit type exit): ", get_random_letter());
     }
 
-    public void increase_points() {
+    private void increase_points() {
         points++;
     }
 
-    public void decrease_points() {
+    private void decrease_points() {
         points--;
     }
 
-    public void show_current_points() {
+    private void show_current_points() {
         System.out.printf("Your current points are: %d%n%n", points);
     }
 
-    public String get_nato_word() {
+    private String get_nato_word() {
         return nato_alphabet[random_index];
     }
 
