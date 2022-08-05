@@ -36,14 +36,6 @@ public class Nato {
         System.out.printf("What is the word for the symbol %s (to exit type exit): ", get_random_letter());
     }
 
-    private void increase_points() {
-        points++;
-    }
-
-    private void decrease_points() {
-        points--;
-    }
-
     private void show_current_points() {
         System.out.printf("Your current points are: %d%n%n", points);
     }
@@ -61,10 +53,10 @@ public class Nato {
 
         if (get_nato_index(input_word) == get_random_index()) {
             System.out.printf("%nHooray!%n");
-            increase_points();
+            points++;
         } else {
             System.out.printf("%nThat's wrong. The correct answer is %s.%n", get_nato_word());
-            decrease_points();
+            points--;
         }
 
         show_current_points();
