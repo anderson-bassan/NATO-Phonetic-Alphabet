@@ -17,7 +17,7 @@ It's commonly used in armies, airports and in situations where people from diffe
 
 ## Downloads
 ### Windows 
-[Nato.exe](Nato.exe)
+<a href="Nato.exe" download>Nato.exe</a>
 
 ## How Compile It to a Jar File
 
