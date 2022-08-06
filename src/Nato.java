@@ -8,7 +8,11 @@ public class Nato {
     private int points;
 
     private int get_nato_index(String word) {
-        for (int i = 0; i < nato_alphabet.length; i++) if (nato_alphabet[i].equals(word)) return i;
+        for (int i = 0; i < nato_alphabet.length; i++) {
+            if (nato_alphabet[i].equals(word)) {
+                return i;
+            }
+        }
         return -1;
     }
 
