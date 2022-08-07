@@ -1,8 +1,40 @@
 import java.util.Scanner;
+import java.util.Map;
+
+import static java.util.Map.entry;
 
 public class Nato {
-    private final String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-    private final String[] natoAlphabet = {"alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliett", "kilo", "lima", "mike", "november", "oscar", "papa", "quebec", "romeo", "sierra", "tango", "uniform", "victor", "whiskey", "xray", "yankee", "zulu", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"};
+    private static final Map<Character, String> natoAlphabet = Map.ofEntries(
+            entry('a', "alpha"),
+            entry('b', "bravo"),
+            entry('c', "charlie"),
+            entry('d', "delta"),
+            entry('e', "echo"),
+            entry('f', "foxtrot"),
+            entry('g', "golf"),
+            entry('h', "hotel"),
+            entry('i', "india"),
+            entry('j', "juliet"),
+            entry('k', "kilo"),
+            entry('l', "lima"),
+            entry('m', "mike"),
+            entry('n', "november"),
+            entry('o', "oscar"),
+            entry('p', "papa"),
+            entry('q', "quebec"),
+            entry('r', "romeo"),
+            entry('s', "sierra"),
+            entry('t', "tango"),
+            entry('u', "uniform"),
+            entry('v', "victor"),
+            entry('w', "whiskey"),
+            entry('x', "xray"),
+            entry('y', "yankee"),
+            entry('z', "zulu")
+    );
+
+//    private final String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+//    private final String[] natoAlphabet = {"alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliett", "kilo", "lima", "mike", "november", "oscar", "papa", "quebec", "romeo", "sierra", "tango", "uniform", "victor", "whiskey", "xray", "yankee", "zulu", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"};
 
     private int randomIndex;
     private int points;
