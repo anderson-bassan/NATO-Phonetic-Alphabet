@@ -1,7 +1,11 @@
-import java.util.Scanner;
 import java.util.Map;
-
 import static java.util.Map.entry;
+
+import java.util.Random;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class Nato {
     private static final Map<Character, String> natoAlphabet = Map.ofEntries(
@@ -30,72 +34,79 @@ public class Nato {
             entry('w', "whiskey"),
             entry('x', "xray"),
             entry('y', "yankee"),
-            entry('z', "zulu")
+            entry('z', "zulu"),
+			entry('0', "zero"),
+			entry('1', "one"),
+			entry('2', "two"),
+			entry('3', "three"),
+			entry('4', "four"),
+			entry('5', "five"),
+			entry('6', "six"),
+			entry('7', "seven"),
+			entry('8', "eight"),
+			entry('9', "nine")
     );
 
-//    private final String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-//    private final String[] natoAlphabet = {"alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliett", "kilo", "lima", "mike", "november", "oscar", "papa", "quebec", "romeo", "sierra", "tango", "uniform", "victor", "whiskey", "xray", "yankee", "zulu", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"};
+	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    private int randomIndex;
-    private int points;
+    private final Random rand = new Random();
+	
+	private char randomChar;
+	private String randomWord;
+    private int points = 0;
 
-    private int getNatoIndex(String word) {
-        for (int i = 0; i < natoAlphabet.length; i++) {
-            if (natoAlphabet[i].equals(word)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+	private void setRandomChar() {
+		int c = rand.nextInt(natoAlphabet.size()); // generates a random char between 0 and 35
+		randomChar =  (c < 26) ? (char) ('a' + c) : (char) ('0' + c - 26); // return the equivalent letter or number
+	}
+	
+	private void setRandomWord() {
+		setRandomChar();
+		randomWord = natoAlphabet.get(randomChar);
+	}
+	
+	private void showCorrectAnswer() {
+		System.out.printf("%nThe correct word is %s.%n", randomWord);
+	}
+	
+	private void showPoints() {
+		System.out.printf("%n%n%n%n%n%nYour current points are %d.%n%n%n%n%n%n%n", points);
+	}
+	
+	private String getInput() {
+		try {
+			return br.readLine().toLowerCase();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "exit";
+		}
+	}
 
-    private String getInputWord() {
-        Scanner inputWord = new Scanner(System.in);
-        return inputWord.nextLine().toLowerCase();
-    }
 
-    private void setRandomIndex() {
-        randomIndex = (int) (Math.random() * alphabet.length);
-    }
-    private int getRandomIndex() {
-        return randomIndex;
-    }
+	public boolean guess() {	
+		setRandomWord();
+		System.out.printf("What is the word for %c (exit to exit): ", randomChar);
+		String inputWord = getInput();
+		
+		if (inputWord.equals("exit")) return false;
+		
+		if (inputWord.equals(randomWord)) {
+			points++;
+		
+		} else {
+			showCorrectAnswer();
+			points--;
+		}
 
-    private void randomize() {
-        setRandomIndex();
-    }
+		showPoints();	
 
-    private String getRandomLetter() {
-        return alphabet[getRandomIndex()];
-    }
-
-    private void showRandomLetter() {
-        System.out.printf("What is the word for the symbol %s (to exit type exit): ", getRandomLetter());
-    }
-
-    private void showCurrentPoints() {
-        System.out.printf("Your current points are: %d%n%n", points);
-    }
-
-    private String getNatoWord() {
-        return natoAlphabet[randomIndex];
-    }
-
-    public boolean play() {
-        randomize();
-        showRandomLetter();
-        String inputWord = getInputWord();
-
-        if (inputWord.equals("exit")) return false;
-
-        if (getNatoIndex(inputWord) == getRandomIndex()) {
-            System.out.printf("%nHooray!%n");
-            points++;
-        } else {
-            System.out.printf("%nThat's wrong. The correct answer is %s.%n", getNatoWord());
-            points--;
-        }
-
-        showCurrentPoints();
-        return true;
-    }
+		return true;
+	}
+	
+	public void play() {
+		while (guess());
+		
+		System.out.printf("Total points: %d.%n", points);
+	}
 }
