@@ -1,0 +1,121 @@
+// import for handling maps
+import java.util.HashMap;
+import java.util.ArrayList;
+
+// import for generating random numbers
+import java.util.Random;
+
+// imports for handling user input
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class NATOPhoneticAlphabet {
+    private HashMap<Character, String> natoPhoneticAlphabet = new HashMap<Character, String>();
+
+	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    private final Random randomGenerator = new Random();
+	
+	private char randomChar;
+ 	private String randomWord;
+    private int points = 0;
+
+	public NATOPhoneticAlphabet() {
+            natoPhoneticAlphabet.put('a', "alpha");
+            natoPhoneticAlphabet.put('b', "bravo");
+            natoPhoneticAlphabet.put('c', "charlie");
+            natoPhoneticAlphabet.put('d', "delta");
+            natoPhoneticAlphabet.put('e', "echo");
+            natoPhoneticAlphabet.put('f', "foxtrot");
+            natoPhoneticAlphabet.put('g', "golf");
+            natoPhoneticAlphabet.put('h', "hotel");
+            natoPhoneticAlphabet.put('i', "india");
+            natoPhoneticAlphabet.put('j', "juliet");
+            natoPhoneticAlphabet.put('k', "kilo");
+            natoPhoneticAlphabet.put('l', "lima");
+            natoPhoneticAlphabet.put('m', "mike");
+            natoPhoneticAlphabet.put('n', "november");
+            natoPhoneticAlphabet.put('o', "oscar");
+            natoPhoneticAlphabet.put('p', "papa");
+            natoPhoneticAlphabet.put('q', "quebec");
+            natoPhoneticAlphabet.put('r', "romeo");
+            natoPhoneticAlphabet.put('s', "sierra");
+            natoPhoneticAlphabet.put('t', "tango");
+            natoPhoneticAlphabet.put('u', "uniform");
+            natoPhoneticAlphabet.put('v', "victor");
+            natoPhoneticAlphabet.put('w', "whiskey");
+            natoPhoneticAlphabet.put('x', "xray");
+            natoPhoneticAlphabet.put('y', "yankee");
+            natoPhoneticAlphabet.put('z', "zulu");
+			natoPhoneticAlphabet.put('0', "zero");
+			natoPhoneticAlphabet.put('1', "one");
+			natoPhoneticAlphabet.put('2', "two");
+			natoPhoneticAlphabet.put('3', "three");
+			natoPhoneticAlphabet.put('4', "four");
+			natoPhoneticAlphabet.put('5', "five");
+			natoPhoneticAlphabet.put('6', "six");
+			natoPhoneticAlphabet.put('7', "seven");
+			natoPhoneticAlphabet.put('8', "eight");
+			natoPhoneticAlphabet.put('9', "nine");
+	}
+
+ 	private void setRandomChar() {
+		int charIndex = randomGenerator.nextInt(natoPhoneticAlphabet.size());
+		Character[] alphabet = natoPhoneticAlphabet.keySet().toArray(new Character[natoPhoneticAlphabet.size()]);
+
+		randomChar = alphabet[charIndex];
+	}
+	
+ 	private void setRandomWord() {
+		setRandomChar();
+		randomWord = natoPhoneticAlphabet.get(randomChar);
+	}
+	
+	private void showCorrectAnswer() {
+		System.out.printf("%nThe correct word is %s.%n", randomWord);
+	}
+	
+	private void showPoints() {
+		System.out.printf("%n%n%n%n%n%nYour current points are %d.%n%n%n%n%n%n%n", points);
+	}
+	
+	private String getInput() {
+		try {
+			return br.readLine().toLowerCase();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "exit";
+		}
+	}
+
+	public boolean guess() {	
+ 		setRandomWord();
+		System.out.printf("What is the word for %c (exit to exit): ", randomChar);
+		String inputWord = getInput();
+		
+		if (inputWord.equals("exit")) return false;
+		
+		if (inputWord.equals(randomWord)) {
+			natoPhoneticAlphabet.remove(randomChar, randomWord); // remove word from possible words
+			points++;
+			
+			if (natoPhoneticAlphabet.size() == 0) {
+				return false;
+			}
+		
+		} else {
+			showCorrectAnswer();
+			points--;
+		}
+
+		showPoints();	
+		
+		return true;
+	}
+
+	public void play() {	
+		while (guess());		
+	}
+}

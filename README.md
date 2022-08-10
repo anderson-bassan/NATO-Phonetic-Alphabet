@@ -34,3 +34,11 @@ cd \d %userprofile%\Nato\
 When asked "Are you sure (Y/N)?", type "Y".
 
 Your jar file can be found at C:\Users\[your user folder]\Nato\.
+
+## TODO
+
+* add comments
+* improve UI and UX when showing points
+* add time to type in answer
+* make the random word seem more random
+* add implement Levenshtein ditance algorithm

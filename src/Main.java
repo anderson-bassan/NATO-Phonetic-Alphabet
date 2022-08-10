@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-		Nato nato = new Nato();
-		nato.play();
+		NATOPhoneticAlphabet natoPhoneticAlphabet = new NATOPhoneticAlphabet();
+		natoPhoneticAlphabet.play();
     }
 }
