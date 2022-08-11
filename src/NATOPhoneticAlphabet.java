@@ -77,7 +77,49 @@ public class NATOPhoneticAlphabet {
 	}
 	
 	private void showPoints() {
-		System.out.printf("%n%n%n%n%n%nYour current points are %d.%n%n%n%n%n%n%n", points);
+		String filledLine = "";
+		String borderLine = "#";
+		for (int i = 0; i < 36; i++) filledLine += "#";
+		for (int i = 0; i < 34; i++) borderLine += " ";
+		borderLine += "#";
+		
+		System.out.printf("%n%n%s%n", filledLine);
+		System.out.printf("%s%n", borderLine);
+		
+		if (points < 10) {
+			System.out.printf("#    Your current points are %d     #%n", points);
+		
+		} else {
+			System.out.printf("#    Your current points are %d    #%n", points);
+		}
+		
+		System.out.printf("%s%n", borderLine);
+		System.out.printf("%s%n%n", filledLine);
+	}
+	
+	private void finalPoints() {	
+		String filledLine = "";
+		String borderLine = "#";
+		for (int i = 0; i < 36; i++) filledLine += "#";
+		for (int i = 0; i < 34; i++) borderLine += " ";
+		borderLine += "#";
+
+		System.out.printf("%n%n%s%n", filledLine);	
+		System.out.println("#             GAME OVER            #");
+		System.out.printf("%s%n%n", filledLine);
+		
+		System.out.printf("%n%n%s%n", filledLine);
+		System.out.printf("%s%n", borderLine);
+		
+		if (points < 10) {
+			System.out.printf("#    You final score was %d         #%n", points);
+		
+		} else {
+			System.out.printf("#    You final score was %d        #%n", points);
+		}
+		
+		System.out.printf("%s%n", borderLine);
+		System.out.printf("%s%n%n", filledLine);
 	}
 	
 	private String getInput() {
@@ -90,7 +132,7 @@ public class NATOPhoneticAlphabet {
 		}
 	}
 
-	public boolean guess() {	
+	private boolean guess() {	
  		setRandomWord();
 		System.out.printf("What is the word for %c (exit to exit): ", randomChar);
 		String inputWord = getInput();
@@ -116,6 +158,7 @@ public class NATOPhoneticAlphabet {
 	}
 
 	public void play() {	
-		while (guess());		
+		while (guess());
+		finalPoints();
 	}
 }
