@@ -77,49 +77,44 @@ public class NATOPhoneticAlphabet {
 	}
 	
 	private void showPoints() {
-		String filledLine = "";
-		String borderLine = "#";
-		for (int i = 0; i < 36; i++) filledLine += "#";
-		for (int i = 0; i < 34; i++) borderLine += " ";
-		borderLine += "#";
+		System.out.println("");
+		System.out.println("");
+		System.out.println("####################################");
+		System.out.println("#                                  #");
 		
-		System.out.printf("%n%n%s%n", filledLine);
-		System.out.printf("%s%n", borderLine);
-		
-		if (points < 10) {
+		if (0 <= points && points < 10) {
 			System.out.printf("#    Your current points are %d     #%n", points);
 		
 		} else {
 			System.out.printf("#    Your current points are %d    #%n", points);
 		}
-		
-		System.out.printf("%s%n", borderLine);
-		System.out.printf("%s%n%n", filledLine);
+
+		System.out.println("#                                  #");
+		System.out.println("####################################");
+		System.out.println("");
+		System.out.println("");
 	}
 	
 	private void finalPoints() {	
-		String filledLine = "";
-		String borderLine = "#";
-		for (int i = 0; i < 36; i++) filledLine += "#";
-		for (int i = 0; i < 34; i++) borderLine += " ";
-		borderLine += "#";
-
-		System.out.printf("%n%n%s%n", filledLine);	
+		System.out.println("");
+		System.out.println("");
+		System.out.println("####################################");
 		System.out.println("#             GAME OVER            #");
-		System.out.printf("%s%n%n", filledLine);
-		
-		System.out.printf("%n%n%s%n", filledLine);
-		System.out.printf("%s%n", borderLine);
-		
-		if (points < 10) {
+		System.out.println("####################################");
+		System.out.println("");
+		System.out.println("");		
+		System.out.println("####################################");
+		System.out.println("#                                  #");
+
+		if (0 <= points && points < 10) {
 			System.out.printf("#    You final score was %d         #%n", points);
 		
 		} else {
 			System.out.printf("#    You final score was %d        #%n", points);
-		}
-		
-		System.out.printf("%s%n", borderLine);
-		System.out.printf("%s%n%n", filledLine);
+		}		
+
+		System.out.println("#                                  #");
+		System.out.println("####################################");
 	}
 	
 	private String getInput() {
