@@ -39,5 +39,4 @@ Your jar file can be found at C:\Users\[your user folder]\Nato\.
 
 * add comments
 * add time to type in answer
-* make the random word seem more random
 * add implement Levenshtein ditance algorithm
