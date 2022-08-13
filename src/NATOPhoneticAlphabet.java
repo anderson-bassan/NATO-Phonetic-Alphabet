@@ -17,6 +17,7 @@ public class NATOPhoneticAlphabet {
 
     private final Random randomGenerator = new Random();
 	
+	private char previousChar = '`';
 	private char randomChar;
  	private String randomWord;
     private int points = 0;
@@ -60,11 +61,19 @@ public class NATOPhoneticAlphabet {
 			natoPhoneticAlphabet.put('9', "nine");
 	}
 
- 	private void setRandomChar() {
+ 	private void setRandomChar() {	
 		int charIndex = randomGenerator.nextInt(natoPhoneticAlphabet.size());
 		Character[] alphabet = natoPhoneticAlphabet.keySet().toArray(new Character[natoPhoneticAlphabet.size()]);
 
-		randomChar = alphabet[charIndex];
+		if (previousChar == (char) (alphabet[charIndex] - 1) || previousChar == (char) (alphabet[charIndex] + 1)) {
+			// if the last char is too similar to the previous random char generates a new one
+			setRandomChar();
+			
+		} else {
+			// this generates a char in the first run or if the char is random enough. Surprisingly it nevers softlock 
+			randomChar = alphabet[charIndex];
+			previousChar = randomChar;
+		}
 	}
 	
  	private void setRandomWord() {
