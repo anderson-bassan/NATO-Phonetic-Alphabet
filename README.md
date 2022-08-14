@@ -38,5 +38,4 @@ Your jar file can be found at C:\Users\[your user folder]\Nato\.
 ## TODO
 
 * add comments
-* add time to type in answer
 * add implement Levenshtein ditance algorithm
