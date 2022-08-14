@@ -5,15 +5,16 @@ import java.util.ArrayList;
 // import for generating random numbers
 import java.util.Random;
 
-// imports for handling user input
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+// imports for scheduling tasks
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 public class NATOPhoneticAlphabet {
     private HashMap<Character, String> natoPhoneticAlphabet = new HashMap<Character, String>();
-
-	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     private final Random randomGenerator = new Random();
 	
@@ -21,6 +22,8 @@ public class NATOPhoneticAlphabet {
 	private char randomChar;
  	private String randomWord;
     private int points = 0;
+	
+	private int TIMEOUT_SECONDS = 3;
 
 	public NATOPhoneticAlphabet() {
             natoPhoneticAlphabet.put('a', "alpha");
@@ -127,13 +130,25 @@ public class NATOPhoneticAlphabet {
 	}
 	
 	private String getInput() {
+		ExecutorService executor = Executors.newFixedThreadPool(3);
+		InputReader inputReader = new InputReader();
+		Future<String> result = executor.submit(inputReader);
+		
 		try {
+			return result.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+		} catch(ExecutionException | InterruptedException | TimeoutException e) {
+			return "exit";
+		} finally {
+			executor.shutdown();
+		}
+		
+/* 		try {
 			return br.readLine().toLowerCase();
 		
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "exit";
-		}
+		} */
 	}
 
 	private boolean guess() {	
@@ -161,8 +176,22 @@ public class NATOPhoneticAlphabet {
 		return true;
 	}
 
-	public void play() {	
+	public void play() {
+		try {
+			System.out.printf("%n%nWelcome to NATO Phonetic Alphabet%n%n");
+			Thread.sleep(3000);
+			System.out.printf("This is a game to help you learn the NATO Phonetic Alphabet while having fun.%n%n");
+			Thread.sleep(3000);
+			System.out.printf("You have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", TIMEOUT_SECONDS);
+			System.out.printf("If you get all words correctly, then you win the game.%n");
+			Thread.sleep(4000);
+			System.out.printf("Enjoy!%n");
+			Thread.sleep(4000);
+			System.out.printf("                                                              - Created by Anderson Bassan%n%n%n");
+		} catch (InterruptedException e) {}
+		
 		while (guess());
 		finalPoints();
+		System.exit(0);
 	}
 }
