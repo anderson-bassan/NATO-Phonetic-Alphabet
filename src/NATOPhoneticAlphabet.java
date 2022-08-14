@@ -111,7 +111,14 @@ public class NATOPhoneticAlphabet {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("####################################");
-		System.out.println("#             GAME OVER            #");
+		
+		if (natoPhoneticAlphabet.size() == 0) {
+			System.out.println("#              YOU WON             #");
+			
+		} else {
+			System.out.println("#             GAME OVER            #");
+		}
+		
 		System.out.println("####################################");
 		System.out.println("");
 		System.out.println("");		
@@ -136,19 +143,14 @@ public class NATOPhoneticAlphabet {
 		
 		try {
 			return result.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-		} catch(ExecutionException | InterruptedException | TimeoutException e) {
+		} catch(ExecutionException | InterruptedException e) {
+			return "exit";
+		} catch(TimeoutException e) {
+			System.out.printf("%n%n%nYou took too long to answer and lost due to time.%n");
 			return "exit";
 		} finally {
 			executor.shutdown();
 		}
-		
-/* 		try {
-			return br.readLine().toLowerCase();
-		
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "exit";
-		} */
 	}
 
 	private boolean guess() {	
@@ -176,22 +178,34 @@ public class NATOPhoneticAlphabet {
 		return true;
 	}
 
-	public void play() {
+	public void showIntro() {
 		try {
-			System.out.printf("%n%nWelcome to NATO Phonetic Alphabet%n%n");
+			System.out.printf("%n%n\tWelcome to NATO Phonetic Alphabet%n%n");
 			Thread.sleep(3000);
-			System.out.printf("This is a game to help you learn the NATO Phonetic Alphabet while having fun.%n%n");
+			System.out.printf("\tThis is a game to help you learn the NATO Phonetic Alphabet while having fun.%n%n");
 			Thread.sleep(3000);
-			System.out.printf("You have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", TIMEOUT_SECONDS);
-			System.out.printf("If you get all words correctly, then you win the game.%n");
+			System.out.printf("\tYou have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", TIMEOUT_SECONDS);
+			System.out.printf("\tIf you get all words correctly, then you win the game.%n%n");
+			Thread.sleep(5000);
+			System.out.printf("\tThe main idea for this project was taken from Reddit, namely, r/learnJava, but I designed and coded this%n");
+			System.out.printf("\tprogram on my own while receiving feedback on my code from the reddit users u/NautiHooker, u/Nightcorex_.%n");
+			System.out.printf("\tand u/geoffreychallen.%n%n");
+			Thread.sleep(6000);
+			System.out.printf("\tmy post link: https://www.reddit.com/r/learnjava/comments/wgwowp/how_can_i_improve_this_code/%n%n");
 			Thread.sleep(4000);
-			System.out.printf("Enjoy!%n");
-			Thread.sleep(4000);
-			System.out.printf("                                                              - Created by Anderson Bassan%n%n%n");
-		} catch (InterruptedException e) {}
-		
+			System.out.printf("\tEnjoy!%n");
+			Thread.sleep(3000);
+			System.out.printf("\t\t\t\t\t- Created by Anderson Bassan%n%n%n");
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void play() {
+		showIntro();
 		while (guess());
 		finalPoints();
-		System.exit(0);
+		System.exit(0); // Exits the code in case the user takes too long to type and lose, otherwise System.in will stay open
 	}
 }
