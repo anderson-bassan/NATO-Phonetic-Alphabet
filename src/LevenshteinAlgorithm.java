@@ -1,25 +1,34 @@
 public class LevenshteinAlgorithm {
-	public int calculateDistance(String stringOne, String stringTwo) {
-		if (Math.min(stringOne.length(), stringTwo.length()) == 0) {
-			return Math.max(stringOne.length(), stringTwo.length());
+	public int calculateDistance(String string1, String string2) {
+		// *tail is the substring that contain all original characters except for the last one
+		
+		int lev1, lev2, lev3;
+		
+		// add exception in case any paramether is null
+		
+		if (Math.min(string1.length(), string2.length()) == 0) {
+			// "" and "" return zero because they are equal even if empty
+			/*  if only one string is empty you need to add all chars of the other string, thus the distance is
+				the number of chars of the biggest string*/
+			return Math.max(string1.length(), string2.length());
 		}
-
-/* 		if (stringOne.charAt(0) == stringTwo.charAt(0)) {
-			System.out.println(calculateDistance(stringOne.substring(0, stringOne.length() - 1), stringTwo.substring(0, stringTwo.length() - 1)));
-			return 0;
-		} */
- 		if (stringOne.charAt(stringOne.length() - 1) == stringTwo.charAt(stringTwo.length() - 1)) {
-			// remove last chars from both strings and return a new calculateDistance call
-			return calculateDistance(stringOne.substring(0, stringOne.length() - 1), stringTwo.substring(0, stringTwo.length() - 1));
+				
+ 		if (string1.charAt(string1.length() - 1) == string2.charAt(string2.length() - 1)) {
+			// calculate the distance for the *tail of both strings and the distance stays the same
+			return calculateDistance(string1.substring(0, string1.length() - 1), string2.substring(0, string2.length() - 1));
 			
 		} else {
-			// if characters are different then add one to distance
-			return (calculateDistance(stringOne.substring(0, stringOne.length() - 1), stringTwo.substring(0, stringTwo.length() - 1)) + 1);
-		} 		
+			lev1 = calculateDistance(string1.substring(0, string1.length() - 1), string2.substring(0, string2.length() - 1));
+			lev2 = calculateDistance(string1.substring(0, string1.length() - 1), string2);
+			lev3 = calculateDistance(string1, string2.substring(0, string2.length() - 1));
+
+			//  as the last characters are not equal add at least one to the levenshtein distance
+			return 1 + Math.min(Math.min(lev1, lev2), lev3);
+		}
 	}
 
-/* 	public boolean fuzzyMatching(String stringOne, String stringTwo, int maximumAcceptedDistance) {
- 		if (calculateDistance(stringOne, stringTwo) <= maximumAcceptedDistance) {
+/* 	public boolean fuzzyMatching(String string1, String string2, int maximumAcceptedDistance) {
+ 		if (calculateDistance(string1, string2) <= maximumAcceptedDistance) {
 			return true;
 		} else {
 			return false;
@@ -69,6 +78,34 @@ public class LevenshteinAlgorithm {
 		} else {
 			System.out.println("\ttest six: failed");
 			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("test", "tesd"));
+		}
+
+		if (calculateDistance("think", "thing") == 1) {
+			System.out.println("\ttest seven: passed");
+		} else {
+			System.out.println("\ttest seven: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("think", "thing"));
+		}
+
+		if (calculateDistance("pato", "gato") == 1) {
+			System.out.println("\ttest eight: passed");
+		} else {
+			System.out.println("\ttest eight: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("pato", "gato"));
+		}
+		
+		if (calculateDistance("book", "back") == 2	) {
+			System.out.println("\ttest nine: passed");
+		} else {
+			System.out.println("\ttest nine: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("book", "back"));
+		}
+		
+		if (calculateDistance("strip", "number") == 6	) {
+			System.out.println("\ttest ten: passed");
+		} else {
+			System.out.println("\ttest ten: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("strip", "number"));
 		}
 	}
 }
