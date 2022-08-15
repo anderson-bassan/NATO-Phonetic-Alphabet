@@ -1,10 +1,13 @@
 public class LevenshteinAlgorithm {
-	public int calculateDistance(String string1, String string2) {
+	public int calculateDistance(String string1, String string2) throws NullPointerException {
 		// *tail is the substring that contain all original characters except for the last one
 		
 		int lev1, lev2, lev3;
 		
 		// add exception in case any paramether is null
+		if (string1 == null || string2 == null) {
+			throw new NullPointerException("calculateDistance paramethers can't be null");
+		}
 		
 		if (Math.min(string1.length(), string2.length()) == 0) {
 			// "" and "" return zero because they are equal even if empty
@@ -45,25 +48,29 @@ public class LevenshteinAlgorithm {
 		if (calculateDistance("gato", "") == 4) {
 			System.out.println("\ttest one: passed");
 		} else {
-			System.out.println("zttest one: failed");
+			System.out.println("\ttest one: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("gato", ""));
 		}
 		
 		if (calculateDistance("", "") == 0) {
 			System.out.println("\ttest two: passed");
 		} else {
 			System.out.println("\ttest two: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("", ""));
 		}
 
 		if (calculateDistance("t", "t") == 0) {
 			System.out.println("\ttest three: passed");
 		} else {
 			System.out.println("\ttest three: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("t", "t"));
 		}
 		
 		if (calculateDistance("test", "test") == 0) {
 			System.out.println("\ttest four: passed");
 		} else {
 			System.out.println("\ttest four: failed");
+			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("test", "test"));
 		}
 		
 		if (calculateDistance("test", "est") == 1) {
@@ -107,5 +114,24 @@ public class LevenshteinAlgorithm {
 			System.out.println("\ttest ten: failed");
 			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("strip", "number"));
 		}
+		
+		try {
+			calculateDistance("strip", null);
+		} catch (NullPointerException e) {
+			System.out.println("\ttest eleven: passed");
+		}
+
+		try {
+			calculateDistance(null, "number");
+		} catch (NullPointerException e) {
+			System.out.println("\ttest twelve: passed");
+		}
+
+		try {
+			calculateDistance(null, null);
+		} catch (NullPointerException e) {
+			System.out.println("\ttest thirteen: passed");
+		}
+
 	}
 }
