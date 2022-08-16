@@ -24,6 +24,9 @@ public class NATOPhoneticAlphabet {
     private int points = 0;
 	
 	private int TIMEOUT_SECONDS = 3;
+	
+	private static final LevenshteinAlgorithm lev = new LevenshteinAlgorithm();
+	private static final int levDistancy = 2;
 
 	public NATOPhoneticAlphabet() {
             natoPhoneticAlphabet.put('a', "alpha");
@@ -153,14 +156,14 @@ public class NATOPhoneticAlphabet {
 		}
 	}
 
-	private boolean guess() {	
- 		setRandomWord();
+	private boolean guess() {
+  		setRandomWord();
 		System.out.printf("What is the word for %c (exit to exit): ", randomChar);
 		String inputWord = getInput();
 		
 		if (inputWord.equals("exit")) return false;
 		
-		if (inputWord.equals(randomWord)) {
+		if (lev.fuzzyMatch(inputWord, randomWord, levDistancy)) {
 			natoPhoneticAlphabet.remove(randomChar, randomWord); // remove word from possible words
 			points++;
 			
@@ -175,7 +178,7 @@ public class NATOPhoneticAlphabet {
 
 		showPoints();	
 		
-		return true;
+		return true; 
 	}
 
 	public void showIntro() {
@@ -203,8 +206,8 @@ public class NATOPhoneticAlphabet {
 	}
 	
 	public void play() {
-		showIntro();
-		while (guess());
+  		showIntro();
+ 		while (guess());
 		finalPoints();
 		System.exit(0); // Exits the code in case the user takes too long to type and lose, otherwise System.in will stay open
 	}
