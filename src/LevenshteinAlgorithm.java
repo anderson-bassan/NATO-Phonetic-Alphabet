@@ -30,18 +30,13 @@ public class LevenshteinAlgorithm {
 		}
 	}
 
-/* 	public boolean fuzzyMatching(String string1, String string2, int maximumAcceptedDistance) {
+ 	public boolean fuzzyMatch(String string1, String string2, int maximumAcceptedDistance) {
  		if (calculateDistance(string1, string2) <= maximumAcceptedDistance) {
 			return true;
 		} else {
 			return false;
 		}
 
-	} */
-	
-	public void test() {
-		System.out.printf("%n%nCALCULATE DISTANCE TESTS%n");
-		testCalculateDistance();
 	}
 	
 	public void testCalculateDistance() {
@@ -133,5 +128,10 @@ public class LevenshteinAlgorithm {
 			System.out.println("\ttest thirteen: passed");
 		}
 
+	}
+	
+	public void test() {
+		System.out.printf("%n%nCALCULATE DISTANCE TESTS%n");
+		testCalculateDistance();
 	}
 }
