@@ -1,11 +1,6 @@
-// import for handling maps
 import java.util.HashMap;
 import java.util.ArrayList;
-
-// import for generating random numbers
 import java.util.Random;
-
-// imports for scheduling tasks
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -34,7 +29,7 @@ public class NATOPhoneticAlphabet {
 		natoPhoneticAlphabet.put('b', "bravo");
  		natoPhoneticAlphabet.put('c', "charlie");
 		natoPhoneticAlphabet.put('d', "delta");
-		natoPhoneticAlphabet.put('e', "echo");
+ 		natoPhoneticAlphabet.put('e', "echo");
 		natoPhoneticAlphabet.put('f', "foxtrot");
 		natoPhoneticAlphabet.put('g', "golf");
 		natoPhoneticAlphabet.put('h', "hotel");
@@ -97,20 +92,19 @@ public class NATOPhoneticAlphabet {
 	}
 
  	private void generateRandomChar() {	
-		/*  gets a random letter or number that corresponds to a word of the nato phonetic availableWordsSymbols, but only for words in the map
-			this way, it's impossible to pick a random char for a word that was remmoved from the map
-		*/
+		/*  picks a random char that corresponds to a nato phonetic alphabet word, implemented in a way that feels more random */
 
 		int randomCharIndex = randomGenerator.nextInt(natoPhoneticAlphabet.size());
 		Character[] availableWordsSymbols = natoPhoneticAlphabet.keySet().toArray(new Character[natoPhoneticAlphabet.size()]);
 
-		// if the random char is precedes or follows the previous random char generate a new one
-		if (2 <= natoPhoneticAlphabet.size() && (previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] - 1) || previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] + 1))) {
+		// if the random char is precedes, follows or is the same as the previous random char then generate a new one
+		if (2 <= natoPhoneticAlphabet.size() && (previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] - 1) || previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] + 1) || previousRandomChar == (char) (availableWordsSymbols[randomCharIndex]))) {
 			generateRandomChar();
 			
 		} else {
 			randomChar = availableWordsSymbols[randomCharIndex];
 			previousRandomChar = randomChar;
+			
 		}
 	}
 	
@@ -119,17 +113,21 @@ public class NATOPhoneticAlphabet {
 	}
 	
 	private String getInput() {
+		// get's user input from terminal or return exit in case of timeout
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 		InputReader inputReader = new InputReader();
 		Future<String> result = executor.submit(inputReader);
 		
 		try {
 			return result.get(INPUT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+			
 		} catch(ExecutionException | InterruptedException e) {
 			return "exit";
+			
 		} catch(TimeoutException e) {
 			System.out.printf("%n%n%nYou took too long to answer and lost due to time.%n");
 			return "exit";
+			
 		} finally {
 			executor.shutdown();
 		}
