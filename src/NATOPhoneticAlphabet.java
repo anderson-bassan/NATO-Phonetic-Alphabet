@@ -114,8 +114,11 @@ public class NATOPhoneticAlphabet {
 	
 	private String getInput() {
 		// get's user input from terminal or return exit in case of timeout
+		
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 		InputReader inputReader = new InputReader();
+		
+		// input run's in a separated thread so it won't block the main thread after timing out
 		Future<String> result = executor.submit(inputReader);
 		
 		try {
@@ -130,6 +133,7 @@ public class NATOPhoneticAlphabet {
 			
 		} finally {
 			executor.shutdown();
+			
 		}
 	}
 	
@@ -220,8 +224,7 @@ public class NATOPhoneticAlphabet {
 		}
 
 		showPoints();	
-		return true; 
-		
+		return true; 	
 	}
 	
 	public void play() {
