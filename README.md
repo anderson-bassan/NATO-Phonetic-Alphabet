@@ -37,7 +37,6 @@ Your jar file can be found at C:\Users\[your user folder]\Nato\.
 
 ## TODO
 
-* add comments
 * add database of highest scores
 * implement non-blocking system input
 * implement testing
