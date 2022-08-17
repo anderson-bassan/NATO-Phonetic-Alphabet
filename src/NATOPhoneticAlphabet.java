@@ -96,8 +96,6 @@ public class NATOPhoneticAlphabet {
 		}
 	}
 
-	// Does it break if I have a map of only {a: alpha, b: bravo}?
-
  	private void generateRandomChar() {	
 		/*  gets a random letter or number that corresponds to a word of the nato phonetic availableWordsSymbols, but only for words in the map
 			this way, it's impossible to pick a random char for a word that was remmoved from the map
@@ -120,28 +118,6 @@ public class NATOPhoneticAlphabet {
 		return randomChar;
 	}
 	
-	private void showPoints() {
-		
-		// add if points <= -20
-		
-		System.out.println("");
-		System.out.println("");
-		System.out.println("####################################");
-		System.out.println("#                                  #");
-		
-		if (0 <= points && points < 10) {
-			System.out.printf("#    Your current points are %d     #%n", points);
-		
-		} else {
-			System.out.printf("#    Your current points are %d    #%n", points);
-		}
-
-		System.out.println("#                                  #");
-		System.out.println("####################################");
-		System.out.println("");
-		System.out.println("");
-	}
-	
 	private String getInput() {
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 		InputReader inputReader = new InputReader();
@@ -159,10 +135,30 @@ public class NATOPhoneticAlphabet {
 		}
 	}
 	
+	private void showPoints() {		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("####################################");
+		System.out.println("#                                  #");
+		
+		if (0 <= points && points < 10) {
+			System.out.printf("#    Your current points are %d     #%n", points);
+		
+		} else if (-10 < points || 10 < points) {
+			System.out.printf("#    Your current points are %d    #%n", points);
+		
+		} else {
+			System.out.printf("#    Your current points are %d   #%n", points);
+		}
+
+		System.out.println("#                                  #");
+		System.out.println("####################################");
+		System.out.println("");
+		System.out.println("");
+	}
+	
 	private void showFinalPoints() {
 		/* shows if you won and your final score */
-
-		// add message in case points are <= -10
 		
 		System.out.println("");
 		System.out.println("");
@@ -184,9 +180,12 @@ public class NATOPhoneticAlphabet {
 		if (0 <= points && points < 10) {
 			System.out.printf("#    You final score was %d         #%n", points);
 		
-		} else {
+		} else if (-10 < points || 10 < points) {
 			System.out.printf("#    You final score was %d        #%n", points);
-		}		
+			
+		} else {
+			System.out.printf("#    You final score was %d       #%n", points);
+		}	
 
 		System.out.println("#                                  #");
 		System.out.println("####################################");
