@@ -225,8 +225,8 @@ public class NATOPhoneticAlphabet {
 	}
 	
 	public void play() {
-/*   		showIntro();
- */ 		while (guess());
+   		showIntro();
+  		while (guess());
 		showFinalPoints();
 		System.exit(0); // Exits the code in case the user takes too long to type and lose, otherwise readLine() will hang
 	}
