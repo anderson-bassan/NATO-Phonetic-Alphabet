@@ -8,6 +8,10 @@
 	https://medium.com/@ethannam/understanding-the-levenshtein-distance-equation-for-beginners-c4285a5604f0
 */
 
+
+package com.nato;
+
+
 public class LevenshteinAlgorithm {
 	public int calculateDistance(String string1, String string2) throws NullPointerException {
 		// *tail is the substring that contain all original characters except for the last one

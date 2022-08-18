@@ -1,3 +1,6 @@
+package com.nato;
+
+
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Random;
@@ -7,6 +10,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+
 
 public class NATOPhoneticAlphabet {
     private HashMap<Character, String> natoPhoneticAlphabet = new HashMap<Character, String>();
