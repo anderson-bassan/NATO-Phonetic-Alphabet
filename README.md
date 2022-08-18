@@ -15,25 +15,30 @@ technically a radiotelephonic spelling alphabet.
 
 It's commonly used in armies, airports and in situations where people from different parts of the world need to communicate without spelling mistakes.
 
-## How Compile It to a Jar File
+## How Build and Run the Project
 
 ### In Windows:
-Start a CMD:
-```
-git clone https://github.com/anderson-bassan/Nato.git
-cd Nato\src
-javac -d classes *.java
-cd classes
-jar cfe Nato.jar Main *.class
-mkdir %userprofile%\Nato\
-move Nato.jar %userprofile%\Nato\
-cd ..\..\..
-rmdir /s Nato
-cd \d %userprofile%\Nato\
-```
-When asked "Are you sure (Y/N)?", type "Y".
 
-Your jar file can be found at C:\Users\[your user folder]\Nato\.
+1. Start a CMD
+2. To build the package:
+
+```
+git clone https://github.com/anderson-bassan/Nato.git && cd Nato\src && mvn package
+
+```
+
+3. To run the package:
+```
+run.bat
+```
+
+<pre>
+    OR
+</pre>
+
+```
+java -cp target\NATOPhoneticAlphabet-3.1-RELEASE.jar com.nato.Main
+```
 
 ## TODO
 
