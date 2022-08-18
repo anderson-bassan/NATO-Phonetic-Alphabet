@@ -60,16 +60,7 @@ public class LevenshteinAlgorithm {
 
 	}
 	
-	public void testCalculateDistance() {
-		if (calculateDistance("gato", "") == 4) {
-			System.out.println("\ttest one: passed");
-			
-		} else {
-			System.out.println("\ttest one: failed");
-			System.out.printf("Expected result: 1%nResult: %s", calculateDistance("gato", ""));
-			
-		}
-		
+	public void testCalculateDistance() {	
 		if (calculateDistance("", "") == 0) {
 			System.out.println("\ttest two: passed");
 			

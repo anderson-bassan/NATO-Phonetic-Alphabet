@@ -12,4 +12,18 @@ public class TestLevenshteinAlgorithm {
 		var lev = new LevenshteinAlgorithm();
 		assertEquals(4, lev.calculateDistance("gato", ""));
 	}
+	
+	@Test
+	@DisplayName("nohting and nothing should be equal to zero")
+	void nothingAndNothingShouldBeEqualToZero() {
+		var lev = new LevenshteinAlgorithm();
+		assertEquals(0, lev.calculateDistance("", ""));		
+	}
+
+	@Test
+	@DisplayName("nohting and nothing should be equal to zero")
+	void nothingAndNothingShouldBeEqualToZero() {
+		var lev = new LevenshteinAlgorithm();
+		assertEquals(0, lev.calculateDistance("", ""));		
+	}
 }
