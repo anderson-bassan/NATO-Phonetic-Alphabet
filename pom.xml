@@ -4,7 +4,7 @@
 <groupId>NATO-Phonetic-Alphabet</groupId>
 <artifactId>NATOPhoneticAlphabet</artifactId>
 <packaging>jar</packaging>
-<version>3.2-SNAPSHOT</version>
+<version>3.2.2-SNAPSHOT</version>
 <name>NATOPhoneticAlphabet</name>
 <url>http://maven.apache.org</url>
 <dependencies>
