@@ -1,3 +1,4 @@
+
 # Nato
 ### A Command-line Game to Help You Learn the NATO Alphabet
 
@@ -14,6 +15,13 @@ technically a radiotelephonic spelling alphabet.
 ```
 
 It's commonly used in armies, airports and in situations where people from different parts of the world need to communicate without spelling mistakes.
+
+## Dependencies
+The following software is required to run the nato project:
+* [Java JDK 17.0.2](https://www.oracle.com/java/technologies/downloads/)
+* [Java JRE 1.8.0_341](https://www.java.com/en/download/manual.jsp)
+* [Java JVM 17.0.2](https://www.java.com/en/download/manual.jsp)
+* [Apache Maven 3.8.6](https://maven.apache.org/download.cgi)
 
 ## How Build and Run the Project
 
@@ -32,12 +40,28 @@ git clone https://github.com/anderson-bassan/Nato.git && cd Nato\src && mvn pack
 run.bat
 ```
 
-<pre>
-    OR
-</pre>
+  OR
 
 ```
 java -cp target\NATOPhoneticAlphabet-3.1-RELEASE.jar com.nato.Main
+```
+
+### In Linux
+1. Start a Terminal
+2. To build the package:
+
+```
+git clone https://github.com/anderson-bassan/Nato.git && cd Nato\src && mvn package
+```
+
+3. To run the package
+```
+$ sudo chmod +777 run.sh
+$ ./run.sh
+```
+ OR
+```
+$ java -cp target\NATOPhoneticAlphabet-3.1-RELEASE.jar com.nato.Main
 ```
 
 ## TODO
