@@ -4,15 +4,16 @@ package com.nato;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 public class NATOPhoneticAlphabet {
+	// rewrite this into the contructor and move the building logic to the main class
+
     private HashMap<Character, String> natoPhoneticAlphabet = new HashMap<Character, String>();
 	
     private final Random randomGenerator = new Random();
@@ -22,6 +23,7 @@ public class NATOPhoneticAlphabet {
     private int points = 0;
 	
 	private static final int INPUT_TIMEOUT_SECONDS = 3;
+	private static final TimedOutUserInput timedOutUserInput = new TimedOutUserInput(new InputReader(new BufferedReader(new InputStreamReader(System.in))));
 
 	private static final LevenshteinAlgorithm lev = new LevenshteinAlgorithm();
 	private static final int MAXIMUM_ACCEPTED_DISTANCE = 2;
@@ -95,7 +97,7 @@ public class NATOPhoneticAlphabet {
 		}
 	}
 
- 	private void generateRandomChar() {	
+ 	private void generateRandomChar() {	// refactor into RandomGenerator Class
 		/*  picks a random char that corresponds to a nato phonetic alphabet word, implemented in a way that feels more random */
 
 		int randomCharIndex = randomGenerator.nextInt(natoPhoneticAlphabet.size());
@@ -112,32 +114,15 @@ public class NATOPhoneticAlphabet {
 		}
 	}
 	
-	public char getRandomChar() {
+ 	public char getRandomChar() { // refactor into RandomGenerator Class
 		return randomChar;
 	}
 	
 	private String getInput() {
-		// get's user input from terminal or return exit in case of timeout
-		
-		ExecutorService executor = Executors.newFixedThreadPool(3);
-		InputReader inputReader = new InputReader();
-		
-		// input run's in a separated thread so it won't block the main thread after timing out
-		Future<String> result = executor.submit(inputReader);
-		
 		try {
-			return result.get(INPUT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
-			
-		} catch(ExecutionException | InterruptedException e) {
+			return timedOutUserInput.getTimedOutUserInput(INPUT_TIMEOUT_SECONDS, SECONDS, "you ran out of time and lost", "exit");
+		} catch (IOException e) {
 			return "exit";
-			
-		} catch(TimeoutException e) {
-			System.out.printf("%n%n%nYou took too long to answer and lost due to time.%n");
-			return "exit";
-			
-		} finally {
-			executor.shutdown();
-			
 		}
 	}
 	

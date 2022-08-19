@@ -4,7 +4,7 @@
 <groupId>NATO-Phonetic-Alphabet</groupId>
 <artifactId>NATOPhoneticAlphabet</artifactId>
 <packaging>jar</packaging>
-<version>3.3.0-RELEASE</version>
+<version>3.3.1-SNAPSHOT</version>
 <name>NATOPhoneticAlphabet</name>
 <url>http://maven.apache.org</url>
 <dependencies>
@@ -12,6 +12,12 @@
 		<groupId>org.junit.jupiter</groupId>
 		<artifactId>junit-jupiter</artifactId>
 		<version>5.9.0</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.mockito</groupId>
+		<artifactId>mockito-core</artifactId>
+		<version>4.7.0</version>
 		<scope>test</scope>
 	</dependency>
 </dependencies>
