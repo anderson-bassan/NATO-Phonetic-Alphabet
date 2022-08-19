@@ -3,11 +3,15 @@ package com.nato;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class TestLevenshteinAlgorithm {
 	
 	@Test
+	@DisplayName("assert that calculate distance is working properly")
 	void assertThatCalculateDistanceIsWorkingProperly() {
 		var lev = new LevenshteinAlgorithm();
 
