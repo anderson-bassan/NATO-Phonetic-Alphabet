@@ -13,7 +13,7 @@ public class TestLevenshteinAlgorithm {
 	@Test
 	@DisplayName("assert that calculate distance is working properly")
 	void assertThatCalculateDistanceIsWorkingProperly() {
-		var lev = new LevenshteinAlgorithm();
+		var lev = new LevenshteinAlgorithm(3);
 
 		assertAll("calculateDistance",
 			() -> assertEquals(4, lev.calculateDistance("gato", ""), "\"\" and gat should be equal to 0"),

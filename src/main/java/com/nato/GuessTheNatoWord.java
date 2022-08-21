@@ -17,16 +17,16 @@ public class GuessTheNatoWord {
 	
 	private static NATOPhoneticAlphabet natoPhoneticAlphabet;
 	private static RandomCharacterGenerator randomCharacter;
+	private static LevenshteinAlgorithm levenshteinAlgorithm;
 	
 	private static final int INPUT_TIMEOUT_SECONDS = 3;
 	private static final TimedOutUserInput timedOutUserInput = new TimedOutUserInput(new InputReader(new BufferedReader(new InputStreamReader(System.in))));
 
-	private static final LevenshteinAlgorithm lev = new LevenshteinAlgorithm();
-	private static final int MAXIMUM_ACCEPTED_DISTANCE = 2;
 
- 	public GuessTheNatoWord(NATOPhoneticAlphabet natoPhoneticAlphabet, RandomCharacterGenerator randomCharacter) {
+ 	public GuessTheNatoWord(NATOPhoneticAlphabet natoPhoneticAlphabet, RandomCharacterGenerator randomCharacter, LevenshteinAlgorithm levenshteinAlgorithm) {
 		this.natoPhoneticAlphabet = natoPhoneticAlphabet;
 		this.randomCharacter = randomCharacter;
+		this.levenshteinAlgorithm = levenshteinAlgorithm;
 	}
 
 	public void showIntro() {
@@ -142,7 +142,7 @@ public class GuessTheNatoWord {
 		}
 
 		// verify if the input word is close enough to the correct word
-		if (lev.fuzzyMatch(inputWord, correctWord, MAXIMUM_ACCEPTED_DISTANCE)) {
+		if (levenshteinAlgorithm.fuzzyMatch(inputWord, correctWord)) {
 			natoPhoneticAlphabet.removeByKey(randomCharacter.getRandom()); // remove word from possible random words
 			points++;
 			
