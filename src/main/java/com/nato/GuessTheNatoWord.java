@@ -36,23 +36,30 @@ public class GuessTheNatoWord {
 		// show an intro explaining the project
 		
 		try {
+			var bf = new BufferedReader(new InputStreamReader(System.in));
+
 			System.out.printf("%n%n\tWelcome to NATO Phonetic Alphabet%n%n");
-			Thread.sleep(3000);
 			System.out.printf("\tThis is a game to help you learn the NATO Phonetic Alphabet while having fun.%n%n");
-			Thread.sleep(3000);
 			System.out.printf("\tYou have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", INPUT_TIMEOUT_SECONDS);
 			System.out.printf("\tIf you get all words correctly, then you win the game.%n%n");
-			Thread.sleep(5000);
 			System.out.printf("\tThe main idea for this project was taken from Reddit, namely, r/learnJava, but I designed and coded this%n");
 			System.out.printf("\tprogram on my own while receiving feedback on my code from the reddit users u/NautiHooker, u/Nightcorex_.%n");
 			System.out.printf("\tand u/geoffreychallen.%n%n");
-			Thread.sleep(6000);
 			System.out.printf("\tmy post link: https://www.reddit.com/r/learnjava/comments/wgwowp/how_can_i_improve_this_code/%n%n");
-			Thread.sleep(4000);
 			System.out.printf("\tEnjoy!%n");
-			Thread.sleep(3000);
 			System.out.printf("\t\t\t\t\t- Created by Anderson Bassan%n%n%n");
-			Thread.sleep(3000);
+			System.out.printf("\t\t\t\t\t[PRESS ENTER TO START THE GAME]%n");
+
+			try {
+				while (!bf.ready()) {
+					Thread.sleep(20);
+				}
+			
+				bf.readLine();
+			} catch (IOException e) {
+				System.out.println("input error when getting enter to start the game");
+				e.printStackTrace();
+			}
 			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
