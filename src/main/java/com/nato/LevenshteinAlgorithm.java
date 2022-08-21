@@ -13,6 +13,12 @@ package com.nato;
 
 
 public class LevenshteinAlgorithm {
+	private static int maximumAcceptedDistance;
+	
+	public LevenshteinAlgorithm (int maximumAcceptedDistance) {
+		this.maximumAcceptedDistance = maximumAcceptedDistance;
+	}
+	
 	public int calculateDistance(String string1, String string2) throws NullPointerException {
 		// *tail is the substring that contain all original characters except for the last one
 		
@@ -49,7 +55,7 @@ public class LevenshteinAlgorithm {
 		}
 	}
 
- 	public boolean fuzzyMatch(String string1, String string2, int maximumAcceptedDistance) {
+ 	public boolean fuzzyMatch(String string1, String string2) {
  		if (calculateDistance(string1, string2) <= maximumAcceptedDistance) {
 			return true;
 			
