@@ -1,13 +1,11 @@
 package com.nato;
 
 
-import java.util.HashMap;
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.ArrayList;
 import java.io.IOException;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 public class GuessTheNatoWord {
@@ -18,15 +16,14 @@ public class GuessTheNatoWord {
 	private static NATOPhoneticAlphabet natoPhoneticAlphabet;
 	private static RandomCharacterGenerator randomCharacter;
 	private static LevenshteinAlgorithm levenshteinAlgorithm;
-	
-	private static final int INPUT_TIMEOUT_SECONDS = 3;
-	private static final TimedOutUserInput timedOutUserInput = new TimedOutUserInput(new InputReader(new BufferedReader(new InputStreamReader(System.in))));
+	private static TimedOutUserInput timedOutUserInput;
 
 
- 	public GuessTheNatoWord(NATOPhoneticAlphabet natoPhoneticAlphabet, RandomCharacterGenerator randomCharacter, LevenshteinAlgorithm levenshteinAlgorithm) {
+ 	public GuessTheNatoWord(NATOPhoneticAlphabet natoPhoneticAlphabet, RandomCharacterGenerator randomCharacter, LevenshteinAlgorithm levenshteinAlgorithm, TimedOutUserInput timedOutUserInput) {
 		this.natoPhoneticAlphabet = natoPhoneticAlphabet;
 		this.randomCharacter = randomCharacter;
 		this.levenshteinAlgorithm = levenshteinAlgorithm;
+		this.timedOutUserInput = timedOutUserInput;
 	}
 
 	public void showIntro() {
@@ -37,7 +34,7 @@ public class GuessTheNatoWord {
 
 			System.out.printf("%n%n\tWelcome to NATO Phonetic Alphabet%n%n");
 			System.out.printf("\tThis is a game to help you learn the NATO Phonetic Alphabet while having fun.%n%n");
-			System.out.printf("\tYou have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", INPUT_TIMEOUT_SECONDS);
+			System.out.printf("\tYou have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", 3);
 			System.out.printf("\tIf you get all words correctly, then you win the game.%n%n");
 			System.out.printf("\tThe main idea for this project was taken from Reddit, namely, r/learnJava, but I designed and coded this%n");
 			System.out.printf("\tprogram on my own while receiving feedback on my code from the reddit users u/NautiHooker, u/Nightcorex_.%n");
@@ -66,7 +63,7 @@ public class GuessTheNatoWord {
 	
 	private String getInput() {
 		try {
-			return timedOutUserInput.getTimedOutUserInput(INPUT_TIMEOUT_SECONDS, SECONDS, "you ran out of time and lost", "exit");
+			return timedOutUserInput.getTimedOutUserInput();
 		} catch (IOException e) {
 			return "exit";
 		}
