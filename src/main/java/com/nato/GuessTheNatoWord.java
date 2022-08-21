@@ -3,7 +3,6 @@ package com.nato;
 
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Random;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -13,14 +12,11 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GuessTheNatoWord {
 	// rewrite this into the contructor and move the building logic to the main class
-	
-    private final Random randomGenerator = new Random();
-	
-	private char previousRandomChar = '`';
-	private char randomChar;
+
     private int points = 0;
 	
 	private static NATOPhoneticAlphabet natoPhoneticAlphabet;
+	private static RandomCharacterGenerator randomCharacter;
 	
 	private static final int INPUT_TIMEOUT_SECONDS = 3;
 	private static final TimedOutUserInput timedOutUserInput = new TimedOutUserInput(new InputReader(new BufferedReader(new InputStreamReader(System.in))));
@@ -28,8 +24,9 @@ public class GuessTheNatoWord {
 	private static final LevenshteinAlgorithm lev = new LevenshteinAlgorithm();
 	private static final int MAXIMUM_ACCEPTED_DISTANCE = 2;
 
- 	public GuessTheNatoWord() {
-		this.natoPhoneticAlphabet = new NATOPhoneticAlphabet();
+ 	public GuessTheNatoWord(NATOPhoneticAlphabet natoPhoneticAlphabet, RandomCharacterGenerator randomCharacter) {
+		this.natoPhoneticAlphabet = natoPhoneticAlphabet;
+		this.randomCharacter = randomCharacter;
 	}
 
 	public void showIntro() {
@@ -65,27 +62,6 @@ public class GuessTheNatoWord {
 			e.printStackTrace();
 			
 		}
-	}
-
- 	private void generateRandomChar() {	// refactor into RandomGenerator Class
-		/*  picks a random char that corresponds to a nato phonetic alphabet word, implemented in a way that feels more random */
-
-	 	int randomCharIndex = randomGenerator.nextInt(natoPhoneticAlphabet.getSize());
-		Character[] availableWordsSymbols = natoPhoneticAlphabet.getKeys();
-
-		// if the random char is precedes, follows or is the same as the previous random char then generate a new one
-		if (2 <= natoPhoneticAlphabet.getSize() && (previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] - 1) || previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] + 1) || previousRandomChar == (char) (availableWordsSymbols[randomCharIndex]))) {
-			generateRandomChar();
-			
-		} else {
-			randomChar = availableWordsSymbols[randomCharIndex];
-			previousRandomChar = randomChar;
-			
-		}
-	} 
-	
- 	public char getRandomChar() { // refactor into RandomGenerator Class
-		return randomChar;
 	}
 	
 	private String getInput() {
@@ -155,10 +131,10 @@ public class GuessTheNatoWord {
 	private boolean guess() {
 		/* generates a random word, show the first letter to the user and see if they get it right in less than N seconds */
 
- 		generateRandomChar();
-		String correctWord = natoPhoneticAlphabet.getByKey(getRandomChar());
+ 		randomCharacter.generateRandom();
+		String correctWord = natoPhoneticAlphabet.getByKey(randomCharacter.getRandom());
 		
-		System.out.printf("What is the word for %c (exit to exit): ", getRandomChar());
+		System.out.printf("What is the word for %c (exit to exit): ", randomCharacter.getRandom());
 		String inputWord = getInput();
 
 		if (inputWord.equals("exit")) {
@@ -167,7 +143,7 @@ public class GuessTheNatoWord {
 
 		// verify if the input word is close enough to the correct word
 		if (lev.fuzzyMatch(inputWord, correctWord, MAXIMUM_ACCEPTED_DISTANCE)) {
-			natoPhoneticAlphabet.removeByKey(randomChar); // remove word from possible random words
+			natoPhoneticAlphabet.removeByKey(randomCharacter.getRandom()); // remove word from possible random words
 			points++;
 			
 			// ends the game if theres no words left to guess
