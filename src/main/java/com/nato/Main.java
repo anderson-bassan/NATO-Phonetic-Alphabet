@@ -18,10 +18,12 @@ public class Main {
     public static void main(String[] args) {
 		var inputReader = new InputReader(new BufferedReader(new InputStreamReader(System.in)));
 		var natoPhoneticAlphabet = new NATOPhoneticAlphabet();
-		var randomCharacterGenerator = new RandomCharacterGenerator(new Random(), natoPhoneticAlphabet);
+		var wordManager = new WordManager(natoPhoneticAlphabet, new RandomCharacterGenerator(new Random(), natoPhoneticAlphabet.getKeys()));
 		var levenshteinAlgorithm = new LevenshteinAlgorithm(3);
-		var timedOutUserInput = new TimedOutUserInput(inputReader, 3, SECONDS, "You took to long to answer and lost.", "exit");
-   		var guessTheNatoWord = new GuessTheNatoWord(natoPhoneticAlphabet, randomCharacterGenerator, levenshteinAlgorithm, timedOutUserInput);
+		var timedOutUserInput = new TimedOutUserInput(inputReader, 2, SECONDS, "exit", "time out");
+   		var points = new Points("your current points are", "you finished with a score of", "you own", "game over", "you lost by timeout");
+
+		var guessTheNatoWord = new GuessTheNatoWord(wordManager, levenshteinAlgorithm, timedOutUserInput, points);
 
 		guessTheNatoWord.play();
     }
