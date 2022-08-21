@@ -1,32 +1,49 @@
 package com.nato;
 
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 public class RandomCharacterGenerator {
-    private static Random randomGenerator;
-	private static NATOPhoneticAlphabet natoPhoneticAlphabet;
-	private static char previousRandomChar;
-	private static char randomChar;
+    private final Random RANDOM_GENERATOR;
+	private List<Character> symbols;
+	private char previousRandomChar;
+	private char randomChar;
 	
-	public RandomCharacterGenerator(Random randomGenerator, NATOPhoneticAlphabet natoPhoneticAlphabet) {
-		this.randomGenerator = randomGenerator;
-		this.natoPhoneticAlphabet = natoPhoneticAlphabet;
+	public RandomCharacterGenerator(Random randomGenerator, List<Character> symbols) {
+		this.RANDOM_GENERATOR = randomGenerator;
+		this.symbols = symbols;
+
 		this.previousRandomChar = '`';
-		this.randomChar = previousRandomChar;
+		this.randomChar = this.previousRandomChar;
 	}
 	
 	public void generateRandom() {
-		int randomCharIndex = randomGenerator.nextInt(natoPhoneticAlphabet.getSize());
-		Character[] availableWordsSymbols = natoPhoneticAlphabet.getKeys();
+		int randomSymbolIndex = RANDOM_GENERATOR.nextInt(symbols.size());
+		randomChar = symbols.get(randomSymbolIndex);
 
-		// if the random char is precedes, follows or is the same as the previous random char then generate a new one
-		if (2 <= natoPhoneticAlphabet.getSize() && (previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] - 1) || previousRandomChar == (char) (availableWordsSymbols[randomCharIndex] + 1) || previousRandomChar == (char) (availableWordsSymbols[randomCharIndex]))) {
-			generateRandom();
+		if (symbols.size() >= 2) {
+			if (previousRandomChar == (char) randomChar - 1) {
+				generateRandom();
+
+			} else if (previousRandomChar == (char) randomChar + 1) {
+				generateRandom();
+
+			} else if (previousRandomChar == randomChar){
+				generateRandom();
 			
+			} else {
+				previousRandomChar = randomChar;
+			}
+		
 		} else {
-			randomChar = availableWordsSymbols[randomCharIndex];
 			previousRandomChar = randomChar;
+
 		}
+	}
+
+	public void removeSymbol(char symbol) {
+		symbols.remove(Character.valueOf(symbol));
 	}
 	
 	public char getRandom() {

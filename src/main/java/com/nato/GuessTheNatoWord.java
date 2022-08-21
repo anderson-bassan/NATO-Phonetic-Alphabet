@@ -10,20 +10,17 @@ import java.io.IOException;
 
 public class GuessTheNatoWord {
 	// rewrite this into the contructor and move the building logic to the main class
-
-    private int points = 0;
 	
-	private static NATOPhoneticAlphabet natoPhoneticAlphabet;
-	private static RandomCharacterGenerator randomCharacter;
-	private static LevenshteinAlgorithm levenshteinAlgorithm;
-	private static TimedOutUserInput timedOutUserInput;
+	private final WordManager WORD_MANAGER;
+	private final LevenshteinAlgorithm LEVENSHTEIN_ALGORITHM;
+	private final TimedOutUserInput TIMED_OUT_USER_INPUT;
+	private final Points POINTS;
 
-
- 	public GuessTheNatoWord(NATOPhoneticAlphabet natoPhoneticAlphabet, RandomCharacterGenerator randomCharacter, LevenshteinAlgorithm levenshteinAlgorithm, TimedOutUserInput timedOutUserInput) {
-		this.natoPhoneticAlphabet = natoPhoneticAlphabet;
-		this.randomCharacter = randomCharacter;
-		this.levenshteinAlgorithm = levenshteinAlgorithm;
-		this.timedOutUserInput = timedOutUserInput;
+ 	public GuessTheNatoWord(WordManager wordManager, LevenshteinAlgorithm levenshteinAlgorithm, TimedOutUserInput timedOutUserInput, Points points) {
+		this.WORD_MANAGER = wordManager;
+		this.LEVENSHTEIN_ALGORITHM = levenshteinAlgorithm;
+		this.TIMED_OUT_USER_INPUT = timedOutUserInput;
+		this.POINTS = points;
 	}
 
 	public void showIntro() {
@@ -34,7 +31,7 @@ public class GuessTheNatoWord {
 
 			System.out.printf("%n%n\tWelcome to NATO Phonetic Alphabet%n%n");
 			System.out.printf("\tThis is a game to help you learn the NATO Phonetic Alphabet while having fun.%n%n");
-			System.out.printf("\tYou have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", 3);
+			System.out.printf("\tYou have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", TIMED_OUT_USER_INPUT.getTimeOutValue());
 			System.out.printf("\tIf you get all words correctly, then you win the game.%n%n");
 			System.out.printf("\tThe main idea for this project was taken from Reddit, namely, r/learnJava, but I designed and coded this%n");
 			System.out.printf("\tprogram on my own while receiving feedback on my code from the reddit users u/NautiHooker, u/Nightcorex_.%n");
@@ -60,109 +57,60 @@ public class GuessTheNatoWord {
 			
 		}
 	}
-	
-	private String getInput() {
-		try {
-			return timedOutUserInput.getTimedOutUserInput();
-		} catch (IOException e) {
-			return "exit";
-		}
-	}
-	
-	private void showPoints() {		
-		System.out.println("");
-		System.out.println("");
-		System.out.println("####################################");
-		System.out.println("#                                  #");
-		
-		if (0 <= points && points < 10) {
-			System.out.printf("#    Your current points are %d     #%n", points);
-		
-		} else if (-10 < points || 10 < points) {
-			System.out.printf("#    Your current points are %d    #%n", points);
-		
-		} else {
-			System.out.printf("#    Your current points are %d   #%n", points);
-		}
 
-		System.out.println("#                                  #");
-		System.out.println("####################################");
-		System.out.println("");
-		System.out.println("");
-	}
-	
-	private void showFinalPoints() {
-		/* shows if you won and your final score */
-		
-		System.out.println("");
-		System.out.println("");
-		System.out.println("####################################");
-		
- 		if (natoPhoneticAlphabet.getSize() == 0) {
-			System.out.println("#              YOU WON             #");
-			
-		} else {
-			System.out.println("#             GAME OVER            #");
-		}
-		
-		System.out.println("####################################");
-		System.out.println("");
-		System.out.println("");		
-		System.out.println("####################################");
-		System.out.println("#                                  #");
-
-		if (0 <= points && points < 10) {
-			System.out.printf("#    You final score was %d         #%n", points);
-		
-		} else if (-10 < points || 10 < points) {
-			System.out.printf("#    You final score was %d        #%n", points);
-			
-		} else {
-			System.out.printf("#    You final score was %d       #%n", points);
-		}	
-
-		System.out.println("#                                  #");
-		System.out.println("####################################");
-	}
-
-	private boolean guess() {
+	private boolean guessWord() {
 		/* generates a random word, show the first letter to the user and see if they get it right in less than N seconds */
 
- 		randomCharacter.generateRandom();
-		String correctWord = natoPhoneticAlphabet.getByKey(randomCharacter.getRandom());
-		
-		System.out.printf("What is the word for %c (exit to exit): ", randomCharacter.getRandom());
-		String inputWord = getInput();
+ 		String inputWord;
+		WORD_MANAGER.generateRandomCorrectword();
+
+		System.out.printf("What is the word for %c (type exit to exit): ", WORD_MANAGER.getCorrectWordSymbol());
+		try {
+			inputWord = TIMED_OUT_USER_INPUT.getTimedOutUserInput();
+		} catch (IOException e) {
+			inputWord = "exit";
+		}
 
 		if (inputWord.equals("exit")) {
+			POINTS.showGameOverMessage();
+			POINTS.showFinalPoints();
+
 			return false;
 		}
 
-		// verify if the input word is close enough to the correct word
-		if (levenshteinAlgorithm.fuzzyMatch(inputWord, correctWord)) {
-			natoPhoneticAlphabet.removeByKey(randomCharacter.getRandom()); // remove word from possible random words
-			points++;
-			
-			// ends the game if theres no words left to guess
-			if (natoPhoneticAlphabet.getSize() == 0) {
+		if (inputWord.equals("time out")) {
+			POINTS.showGameOverByTimeOutMessage();
+			POINTS.showFinalPoints();
+
+			return false;
+		}
+
+
+		if (LEVENSHTEIN_ALGORITHM.isCorrectByFuzzyMatch(inputWord, WORD_MANAGER.getCorrectWord())) {
+			WORD_MANAGER.removeCorrectWord();
+			POINTS.increasePoints();
+
+			if (WORD_MANAGER.isEmpty()) {
+				POINTS.showWinMessage();
+				POINTS.showFinalPoints();
+
 				return false;
 				
 			}
 		
 		} else {
-			System.out.printf("%nThe correct word is %s.%n", correctWord);
-			points--;
+			System.out.printf("%nThat's wrong. The correct word is %s.%n", WORD_MANAGER.getCorrectWord());
+			POINTS.decreasePoints();
 			
 		}
 
-		showPoints();	
+		POINTS.showCurrentPoints();
 		return true; 	
 	}
- 
+
  	public void play() {
    		showIntro();
-  		while (guess());
-		showFinalPoints();
+  		while (guessWord());
 		System.exit(0); // Exits the code in case the user takes too long to type and lose, otherwise readLine() will hang
 	}
 }

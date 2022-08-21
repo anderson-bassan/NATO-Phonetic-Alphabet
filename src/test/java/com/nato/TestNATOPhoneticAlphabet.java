@@ -1,18 +1,21 @@
 package com.nato;
 
 
+import java.util.Random;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
-
+import org.junit.jupiter.api.Disabled;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 
 public class TestNATOPhoneticAlphabet {
 	NATOPhoneticAlphabet natoAlphabet;
@@ -67,12 +70,12 @@ public class TestNATOPhoneticAlphabet {
 		assertEquals(36, natoAlphabet.getSize(), "get size should equal 36");
 	}
 	
-	@Test
+ 	@Test
 	@DisplayName("test get keys")
 	void testGetKeys() {
-		assertArrayEquals(alphabet.toArray(new Character[36]), natoAlphabet.getKeys(), "get keys shoud be equal to [0-9a-z]");
+		assertThat(alphabet, containsInAnyOrder(natoAlphabet.getKeys().toArray()));
 	}
-	
+
 	@Test 
 	@DisplayName("test get key")
 	void testGetByKey() {
@@ -118,14 +121,14 @@ public class TestNATOPhoneticAlphabet {
 	}
 	
 	@Test 
-	@DisplayName("test remove by key size")
-	void testRemoveByKeySize() {
+	@DisplayName("test remove by key asserting the size is the expected")
+	void testRemoveByKeyByAssertingSize() {
 		for (int i = 0; i < alphabet.size(); i++) {
 			String errorMessage = String.format("after removing %c key from the map, size should be %d", alphabet.get(i), i);
 			
 			// gets a key from 0 to 9 and a to z and removes it
 			natoAlphabet.removeByKey(alphabet.get(i));
-			// asserts that the key was removed from the array by the array size
+			// asserts that the key was removed from the array by checking the array size
 			assertEquals(35 - i, natoAlphabet.getSize(), errorMessage);
 		}
 	}
@@ -139,9 +142,9 @@ public class TestNATOPhoneticAlphabet {
 			natoAlphabet.removeByKey(alphabet.get(i));
 			// creates a correct array with the removed key
 			alphabet.remove(Character.valueOf(alphabet.get(i)));
-			
+
 			// verifies if the key was correctly removed from the keys
-			assertArrayEquals(alphabet.toArray(new Character[35 - i]), natoAlphabet.getKeys(), errorMessage);
+			assertThat(errorMessage, alphabet, containsInAnyOrder(natoAlphabet.getKeys().toArray()));
 		}
 	}
 }

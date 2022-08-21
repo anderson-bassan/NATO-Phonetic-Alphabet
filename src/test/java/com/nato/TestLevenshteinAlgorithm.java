@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class TestLevenshteinAlgorithm {
-	
+
 	@Test
 	@DisplayName("assert that calculate distance is working properly")
 	void assertThatCalculateDistanceIsWorkingProperly() {

@@ -55,7 +55,7 @@ public class LevenshteinAlgorithm {
 		}
 	}
 
- 	public boolean fuzzyMatch(String string1, String string2) {
+ 	public boolean isCorrectByFuzzyMatch(String string1, String string2) {
  		if (calculateDistance(string1, string2) <= maximumAcceptedDistance) {
 			return true;
 			

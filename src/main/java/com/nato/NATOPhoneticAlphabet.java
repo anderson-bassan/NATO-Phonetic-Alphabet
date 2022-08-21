@@ -2,7 +2,8 @@ package com.nato;
 
 
 import java.util.HashMap;
-import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class NATOPhoneticAlphabet {
@@ -53,9 +54,9 @@ public class NATOPhoneticAlphabet {
 		return natoPhoneticAlphabet.size();
 	}
 	
-	public Character[] getKeys() {
-		Character[] keys = natoPhoneticAlphabet.keySet().toArray(new Character[this.getSize()]);
-		Arrays.sort(keys);
+	public List<Character> getKeys() {
+		List<Character> keys = new ArrayList<Character>();
+		keys.addAll(natoPhoneticAlphabet.keySet());
 		return keys;
 	}
 	
