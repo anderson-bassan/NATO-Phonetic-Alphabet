@@ -67,4 +67,4 @@ $ java -cp target\NATOPhoneticAlphabet-3.1-RELEASE.jar com.nato.Main
 ## TODO
 
 * add database of highest scores
-* implement non-blocking system input
+* implement GUI
