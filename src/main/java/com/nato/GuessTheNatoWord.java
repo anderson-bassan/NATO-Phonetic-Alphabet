@@ -3,24 +3,24 @@ package com.nato;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.ArrayList;
 import java.io.IOException;
 
 
 public class GuessTheNatoWord {
-	// rewrite this into the contructor and move the building logic to the main class
+	// rewrite this into the constructor and move the building logic to the main class
 	
 	private final WordManager WORD_MANAGER;
 	private final LevenshteinAlgorithm LEVENSHTEIN_ALGORITHM;
 	private final TimedOutUserInput TIMED_OUT_USER_INPUT;
 	private final Points POINTS;
+	private final TextManager TEXT_MANAGER;
 
- 	public GuessTheNatoWord(WordManager wordManager, LevenshteinAlgorithm levenshteinAlgorithm, TimedOutUserInput timedOutUserInput, Points points) {
+ 	public GuessTheNatoWord(TextManager textManager, WordManager wordManager, LevenshteinAlgorithm levenshteinAlgorithm, TimedOutUserInput timedOutUserInput, Points points) {
 		this.WORD_MANAGER = wordManager;
 		this.LEVENSHTEIN_ALGORITHM = levenshteinAlgorithm;
 		this.TIMED_OUT_USER_INPUT = timedOutUserInput;
 		this.POINTS = points;
+		this.TEXT_MANAGER = textManager;
 	}
 
 	public void showIntro() {
@@ -29,18 +29,8 @@ public class GuessTheNatoWord {
 		try {
 			var bf = new BufferedReader(new InputStreamReader(System.in));
 
-			System.out.printf("%n%n\tWelcome to NATO Phonetic Alphabet%n%n");
-			System.out.printf("\tThis is a game to help you learn the NATO Phonetic Alphabet while having fun.%n%n");
-			System.out.printf("\tYou have %d seconds to type the word equivalent to the letter shown, otherwise you'll lose.%n", TIMED_OUT_USER_INPUT.getTimeOutValue());
-			System.out.printf("\tIf you get all words correctly, then you win the game.%n%n");
-			System.out.printf("\tThe main idea for this project was taken from Reddit, namely, r/learnJava, but I designed and coded this%n");
-			System.out.printf("\tprogram on my own while receiving feedback on my code from the reddit users u/NautiHooker, u/Nightcorex_.%n");
-			System.out.printf("\tand u/geoffreychallen.%n%n");
-			System.out.printf("\tmy post link: https://www.reddit.com/r/learnjava/comments/wgwowp/how_can_i_improve_this_code/%n%n");
-			System.out.printf("\tEnjoy!%n");
-			System.out.printf("\t\t\t\t\t- Created by Anderson Bassan%n%n%n");
-			System.out.printf("\t\t\t\t\t[PRESS ENTER TO START THE GAME]%n");
-
+			System.out.println(String.format(TEXT_MANAGER.getIntroText(), TIMED_OUT_USER_INPUT.getTimeOutValue()));
+			
 			try {
 				while (!bf.ready()) {
 					Thread.sleep(20);

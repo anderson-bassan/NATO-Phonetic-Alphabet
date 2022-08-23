@@ -16,6 +16,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Main {
     public static void main(String[] args) {
+		var textManager = new TextManager();
 		var inputReader = new InputReader(new BufferedReader(new InputStreamReader(System.in)));
 		var natoPhoneticAlphabet = new NATOPhoneticAlphabet();
 		var wordManager = new WordManager(natoPhoneticAlphabet, new RandomCharacterGenerator(new Random(), natoPhoneticAlphabet.getKeys()));
@@ -23,7 +24,7 @@ public class Main {
 		var timedOutUserInput = new TimedOutUserInput(inputReader, 2, SECONDS, "exit", "time out");
    		var points = new Points("your current points are", "you finished with a score of", "you own", "game over", "you lost by timeout");
 
-		var guessTheNatoWord = new GuessTheNatoWord(wordManager, levenshteinAlgorithm, timedOutUserInput, points);
+		var guessTheNatoWord = new GuessTheNatoWord(textManager, wordManager, levenshteinAlgorithm, timedOutUserInput, points);
 
 		guessTheNatoWord.play();
     }
