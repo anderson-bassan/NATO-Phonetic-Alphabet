@@ -1,10 +1,18 @@
 package com.nato;
 
 public class TextManager {
-    String introText;
+    public final String INTRO;
+    public final String CURRENT_POINTS_MESSAGE;
+    public final String FINAL_POINTS_MESSAGE;
+
+    public final String WIN_MESSAGE;
+    public final String LOSE_MESSAGE;
+    public final String LOSE_BY_TIMEOUT_MESSAGE;
+    public final String EXIT_MESSAGE;
+    public final String TIME_OUT_MESSAGE;
 
     public TextManager() {
-        this.introText = """
+        this.INTRO = """
                 
                 
                 \tWelcome to NATO Phonetic Alphabet!
@@ -26,9 +34,13 @@ public class TextManager {
                 \t                                       [ PRESS ENTER  TO START ]
                                                                                              
                 """;
-    }
 
-    public String getIntroText() {
-        return this.introText;
+        this.CURRENT_POINTS_MESSAGE = "your current points are";
+        this.FINAL_POINTS_MESSAGE = "you finished with a score of";
+        this.WIN_MESSAGE = "you own";
+        this.LOSE_MESSAGE = "game over";
+        this.LOSE_BY_TIMEOUT_MESSAGE = "you lost by timeout";
+        this.EXIT_MESSAGE = "exit";
+        this.TIME_OUT_MESSAGE = "time out";
     }
 }

@@ -13,14 +13,14 @@ public class GuessTheNatoWord {
 	private final LevenshteinAlgorithm LEVENSHTEIN_ALGORITHM;
 	private final TimedOutUserInput TIMED_OUT_USER_INPUT;
 	private final Points POINTS;
-	private final TextManager TEXT_MANAGER;
+	private final String INTRO;
 
- 	public GuessTheNatoWord(TextManager textManager, WordManager wordManager, LevenshteinAlgorithm levenshteinAlgorithm, TimedOutUserInput timedOutUserInput, Points points) {
+ 	public GuessTheNatoWord(String INTRO, WordManager wordManager, LevenshteinAlgorithm levenshteinAlgorithm, TimedOutUserInput timedOutUserInput, Points points) {
 		this.WORD_MANAGER = wordManager;
 		this.LEVENSHTEIN_ALGORITHM = levenshteinAlgorithm;
 		this.TIMED_OUT_USER_INPUT = timedOutUserInput;
 		this.POINTS = points;
-		this.TEXT_MANAGER = textManager;
+		this.INTRO = INTRO;
 	}
 
 	public void showIntro() {
@@ -29,7 +29,7 @@ public class GuessTheNatoWord {
 		try {
 			var bf = new BufferedReader(new InputStreamReader(System.in));
 
-			System.out.println(String.format(TEXT_MANAGER.getIntroText(), TIMED_OUT_USER_INPUT.getTimeOutValue()));
+			System.out.println(String.format(this.INTRO, TIMED_OUT_USER_INPUT.getTimeOutValue()));
 			
 			try {
 				while (!bf.ready()) {

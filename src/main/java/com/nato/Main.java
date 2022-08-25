@@ -21,10 +21,29 @@ public class Main {
 		var natoPhoneticAlphabet = new NATOPhoneticAlphabet();
 		var wordManager = new WordManager(natoPhoneticAlphabet, new RandomCharacterGenerator(new Random(), natoPhoneticAlphabet.getKeys()));
 		var levenshteinAlgorithm = new LevenshteinAlgorithm(3);
-		var timedOutUserInput = new TimedOutUserInput(inputReader, 2, SECONDS, "exit", "time out");
-   		var points = new Points("your current points are", "you finished with a score of", "you own", "game over", "you lost by timeout");
 
-		var guessTheNatoWord = new GuessTheNatoWord(textManager, wordManager, levenshteinAlgorithm, timedOutUserInput, points);
+
+		var timedOutUserInput = new TimedOutUserInput(
+				inputReader,
+				2,
+				SECONDS,
+				textManager.EXIT_MESSAGE,
+				textManager.TIME_OUT_MESSAGE);
+
+   		var points = new Points(
+				textManager.CURRENT_POINTS_MESSAGE,
+				textManager.FINAL_POINTS_MESSAGE,
+				textManager.WIN_MESSAGE,
+				textManager.LOSE_MESSAGE,
+				textManager.LOSE_BY_TIMEOUT_MESSAGE);
+
+		var guessTheNatoWord = new GuessTheNatoWord(
+				textManager.INTRO,
+				wordManager,
+				levenshteinAlgorithm,
+				timedOutUserInput,
+				points);
+
 
 		guessTheNatoWord.play();
     }
