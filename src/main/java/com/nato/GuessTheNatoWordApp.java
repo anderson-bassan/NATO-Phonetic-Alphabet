@@ -6,14 +6,12 @@ import java.awt.*;
 public class GuessTheNatoWordApp {
     private final JFrame viewer;
     private final JPanel parentPanel;
-    private final JPanel introPanel;
-    private final JLabel introLabel;
+    private final IntroPanel introPanel;
 
     public GuessTheNatoWordApp(String INTRO_MESSAGE, JFrame viewer) {
         this.viewer = viewer;
         this.parentPanel = new JPanel();
-        this.introPanel = new JPanel();
-        this.introLabel = new JLabel(INTRO_MESSAGE);
+        this.introPanel = new IntroPanel(INTRO_MESSAGE);
     }
 
     public void injectNextPanel(JPanel nextPanel) {
@@ -25,18 +23,13 @@ public class GuessTheNatoWordApp {
         parentPanel.repaint();
     }
 
-    public void setIntroPanel() {
-        introPanel.add(introLabel);
-        introPanel.setLayout(new GridBagLayout());
-    }
-
     public void setParentPanel() {
         parentPanel.setLayout(new GridBagLayout());
         viewer.add(parentPanel);
     }
 
     public void setPanels() {
-        setIntroPanel();
+        introPanel.set();
         setParentPanel();
     }
 
