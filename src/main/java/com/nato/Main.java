@@ -16,7 +16,10 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class Main {
 	public static void main(String[] args) {
 		var textManager = new TextManager();
-		var guessTheNatoWord = new GuessTheNatoWordApp(textManager.INTRO_MESSAGE);
+
+		var viewer = new Viewer();
+
+		var guessTheNatoWord = new GuessTheNatoWordApp(textManager.INTRO_MESSAGE, viewer);
 
 		guessTheNatoWord.play();
 	}

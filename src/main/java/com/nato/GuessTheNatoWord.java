@@ -36,7 +36,7 @@ public class GuessTheNatoWord {
 					Thread.sleep(20);
 				}
 			
-				bf.readLine();
+				bf.readLine(); // waits for the user to press enter before continuing the code execution
 			} catch (IOException e) {
 				System.out.println("input error when getting enter to start the game");
 				e.printStackTrace();
@@ -48,50 +48,73 @@ public class GuessTheNatoWord {
 		}
 	}
 
-	private boolean guessWord() {
-		/* generates a random word, show the first letter to the user and see if they get it right in less than N seconds */
-
- 		String inputWord;
-		WORD_MANAGER.generateRandomCorrectword();
-
+	private String getUserWordGuess() {
+		String inputWord;
 		System.out.printf("What is the word for %c (type exit to exit): ", WORD_MANAGER.getCorrectWordSymbol());
+
 		try {
 			inputWord = TIMED_OUT_USER_INPUT.getTimedOutUserInput();
 		} catch (IOException e) {
 			inputWord = "exit";
 		}
 
-		if (inputWord.equals("exit")) {
-			POINTS.showGameOverMessage();
-			POINTS.showFinalPoints();
+		return inputWord;
 
+	}
+
+	private void userQuit() {
+		POINTS.showGameOverMessage();
+		POINTS.showFinalPoints();
+	}
+
+	private void timeOut() {
+		POINTS.showGameOverByTimeOutMessage();
+		POINTS.showFinalPoints();
+	}
+
+	private void gameOwn() {
+		POINTS.showWinMessage();
+		POINTS.showFinalPoints();
+	}
+
+	private void removeCorrectWord() {
+		WORD_MANAGER.removeCorrectWord();
+		POINTS.increasePoints();
+	}
+
+	private void wrongGuess() {
+		System.out.printf("%nThat's wrong. The correct word is %s.%n", WORD_MANAGER.getCorrectWord());
+		POINTS.decreasePoints();
+	}
+
+	private boolean guessWord() {
+		/* generates a random word, show the first letter to the user and see if they get it right in less than N seconds */
+
+		WORD_MANAGER.generateRandomCorrectword();
+		String guess = getUserWordGuess();
+
+
+		if (guess.equals("exit")) {
+			userQuit();
 			return false;
 		}
 
-		if (inputWord.equals("time out")) {
-			POINTS.showGameOverByTimeOutMessage();
-			POINTS.showFinalPoints();
-
+		if (guess.equals("time out")) {
+			timeOut();
 			return false;
 		}
 
 
-		if (LEVENSHTEIN_ALGORITHM.isCorrectByFuzzyMatch(inputWord, WORD_MANAGER.getCorrectWord())) {
-			WORD_MANAGER.removeCorrectWord();
-			POINTS.increasePoints();
+		if (LEVENSHTEIN_ALGORITHM.isCorrectByFuzzyMatch(guess, WORD_MANAGER.getCorrectWord())) {
+			removeCorrectWord();
 
 			if (WORD_MANAGER.isEmpty()) {
-				POINTS.showWinMessage();
-				POINTS.showFinalPoints();
-
+				gameOwn();
 				return false;
-				
 			}
 		
 		} else {
-			System.out.printf("%nThat's wrong. The correct word is %s.%n", WORD_MANAGER.getCorrectWord());
-			POINTS.decreasePoints();
-			
+			wrongGuess();
 		}
 
 		POINTS.showCurrentPoints();

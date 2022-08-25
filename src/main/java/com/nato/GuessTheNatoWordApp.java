@@ -4,21 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GuessTheNatoWordApp {
-    private final JFrame frame;
+    private final JFrame viewer;
     private final JPanel parentPanel;
     private final JPanel introPanel;
     private final JLabel introLabel;
 
-    public GuessTheNatoWordApp(String INTRO_MESSAGE) {
-        this.frame = new JFrame();
+    public GuessTheNatoWordApp(String INTRO_MESSAGE, JFrame viewer) {
+        this.viewer = viewer;
         this.parentPanel = new JPanel();
         this.introPanel = new JPanel();
         this.introLabel = new JLabel(INTRO_MESSAGE);
-    }
-
-    public void setIntroPanel() {
-        introPanel.add(introLabel);
-        introPanel.setLayout(new GridBagLayout());
     }
 
     public void injectNextPanel(JPanel nextPanel) {
@@ -30,25 +25,39 @@ public class GuessTheNatoWordApp {
         parentPanel.repaint();
     }
 
-    public void setFrame() {
-        parentPanel.setLayout(new GridBagLayout());
-        frame.add(parentPanel);
-        if (frame.getExtendedState() == 0) frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+    public void setIntroPanel() {
+        introPanel.add(introLabel);
+        introPanel.setLayout(new GridBagLayout());
     }
 
-    public void play() {
-        setFrame();
+    public void setParentPanel() {
+        parentPanel.setLayout(new GridBagLayout());
+        viewer.add(parentPanel);
+    }
+
+    public void setPanels() {
         setIntroPanel();
-        injectNextPanel(introPanel);
+        setParentPanel();
+    }
+
+    public void waitForNSeconds(int seconds) {
         try {
-            Thread.sleep(10 * 1000);
+            Thread.sleep(seconds * 1000);
 
         } catch (InterruptedException e) {
             System.out.println("Something went wrong while showing the intro. Exiting...");
             System.exit(0);
         }
+    }
+
+    public void showIntro() {
+        injectNextPanel(introPanel);
+        waitForNSeconds(10);
         removePanel(introPanel);
+    }
+
+    public void play() {
+        setPanels();
+        showIntro();
     }
 }
