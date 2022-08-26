@@ -11,8 +11,10 @@ public class Main {
 	public static void main(String[] args) {
 		var textManager = new TextManager();
 
-		var guessTheNatoWord = new GuessTheNatoWordViewer(textManager.INTRO_MESSAGE);
+		var guessTheNatoWordViewer = new GuessTheNatoWordViewer(textManager.INTRO_MESSAGE);
+		var guessTheNatoWordModel = new GuessTheNatoWordModel();
+		var guessTheNatoWordController = new GuessTheNatoWordController(guessTheNatoWordViewer, guessTheNatoWordModel);
 
-		guessTheNatoWord.play();
+		guessTheNatoWordController.run();
 	}
 }

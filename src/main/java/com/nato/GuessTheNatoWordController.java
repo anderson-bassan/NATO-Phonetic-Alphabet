@@ -1,7 +1,19 @@
 package com.nato;
 
 public class GuessTheNatoWordController {
-    GuessTheNatoWordController() {
+    GuessTheNatoWordViewer viewer;
+    GuessTheNatoWordModel model;
 
+    GuessTheNatoWordController(GuessTheNatoWordViewer viewer, GuessTheNatoWordModel model) {
+        this.viewer = viewer;
+        this.model = model;
+
+        run();
+    }
+
+    void run() {
+        viewer.showIntro();
+        model.waitForNSeconds(5);
+        viewer.removePanel();
     }
 }

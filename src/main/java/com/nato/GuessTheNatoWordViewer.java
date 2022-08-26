@@ -11,15 +11,18 @@ public class GuessTheNatoWordViewer extends JFrame {
     public GuessTheNatoWordViewer(String INTRO_MESSAGE) {
         this.parentPanel = new JPanel();
         this.introPanel = new IntroPanel(INTRO_MESSAGE);
+
+        set();
     }
 
 
     public void injectNextPanel(JPanel nextPanel) {
+        removePanel();
         parentPanel.add(nextPanel);
     }
 
-    public void removePanel(JPanel panelToDelete) {
-        parentPanel.remove(panelToDelete);
+    public void removePanel() {
+        parentPanel.removeAll();
         parentPanel.repaint();
     }
 
@@ -48,24 +51,7 @@ public class GuessTheNatoWordViewer extends JFrame {
         setFrame();
     }
 
-    public void waitForNSeconds(int seconds) {
-        try {
-            Thread.sleep(seconds * 1000);
-
-        } catch (InterruptedException e) {
-            System.out.println("Something went wrong while showing the intro. Exiting...");
-            System.exit(0);
-        }
-    }
-
     public void showIntro() {
         injectNextPanel(introPanel);
-        waitForNSeconds(10);
-        removePanel(introPanel);
-    }
-
-    public void play() {
-        set();
-        showIntro();
     }
 }
