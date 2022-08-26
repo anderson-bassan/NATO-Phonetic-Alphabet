@@ -1,6 +1,6 @@
 package com.nato;
 
-public class TextManager {
+public class MessageManager {
     public final String INTRO_MESSAGE;
     public final String CURRENT_POINTS_MESSAGE;
     public final String FINAL_POINTS_MESSAGE;
@@ -11,7 +11,7 @@ public class TextManager {
     public final String EXIT_MESSAGE;
     public final String TIME_OUT_MESSAGE;
 
-    public TextManager() {
+    public MessageManager() {
         this.INTRO_MESSAGE = """
                 <html>
                     <p>Welcome to NATO Phonetic Alphabet!</p>

@@ -12,6 +12,7 @@ public class GuessTheNatoWordController {
     }
 
     void run() {
+        viewer.setIntro(model.getIntroMessage());
         viewer.showIntro();
         model.waitForNSeconds(5);
         viewer.removePanel();

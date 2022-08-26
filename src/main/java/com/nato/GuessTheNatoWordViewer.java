@@ -8,9 +8,9 @@ public class GuessTheNatoWordViewer extends JFrame {
     private final IntroPanel introPanel;
 
 
-    public GuessTheNatoWordViewer(String INTRO_MESSAGE) {
+    public GuessTheNatoWordViewer() {
         this.parentPanel = new JPanel();
-        this.introPanel = new IntroPanel(INTRO_MESSAGE);
+        this.introPanel = new IntroPanel();
 
         set();
     }
@@ -32,12 +32,6 @@ public class GuessTheNatoWordViewer extends JFrame {
         this.add(parentPanel);
     }
 
-
-    public void setPanels() {
-        introPanel.set();
-        setParentPanel();
-    }
-
     public void setFrame() {
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH); // set frame to maximized
         this.setSize(1000, 680); // size in case the window is unmaximized
@@ -47,8 +41,12 @@ public class GuessTheNatoWordViewer extends JFrame {
     }
 
     public void set() {
-        setPanels();
+        setParentPanel();
         setFrame();
+    }
+
+    public void setIntro(String INTRO_MESSAGE) {
+        introPanel.set(INTRO_MESSAGE);
     }
 
     public void showIntro() {
