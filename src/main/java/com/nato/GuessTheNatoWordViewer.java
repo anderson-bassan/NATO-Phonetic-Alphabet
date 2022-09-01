@@ -10,11 +10,17 @@ public class GuessTheNatoWordViewer extends JFrame {
     private final CardLayout cards;
     private final IntroPanel introPanel;
     private final GuessWordPanel guessWordPanel;
+    private final WinPanel winPanel;
+    private final LosePanel losePanel;
+    private final TimeOverPanel timeOverPanel;
 
     public GuessTheNatoWordViewer() {
         this.cards = new CardLayout();
         this.introPanel = new IntroPanel();
         this.guessWordPanel = new GuessWordPanel(this);
+        this.winPanel = new WinPanel(this);
+        this.losePanel = new LosePanel(this);
+        this.timeOverPanel = new TimeOverPanel(this);
 
         setFrame();
     }
@@ -26,6 +32,34 @@ public class GuessTheNatoWordViewer extends JFrame {
 
     public void showIntro() {
         cards.show(this.getContentPane(), "intro panel");
+    }
+
+    public void setWinPanel() {
+        winPanel.set();
+        add(winPanel, "win");
+    }
+
+    public void showWinPanel() {
+        cards.show(this.getContentPane(), "win");
+    }
+
+
+    public void setLosePanel() {
+        losePanel.set();
+        add(losePanel, "lose");
+    }
+
+    public void showLosePanel() {
+        cards.show(this.getContentPane(), "lose");
+    }
+
+    public void setTimeOverPanel() {
+        timeOverPanel.set();
+        add(timeOverPanel, "time over");
+    }
+
+    public void showTimeOverPanel() {
+        cards.show(this.getContentPane(), "time over");
     }
 
     public void addWordInputListener(FocusListener listener) {

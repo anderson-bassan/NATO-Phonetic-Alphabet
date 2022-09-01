@@ -29,7 +29,7 @@ public class GuessTheNatoWord {
 		try {
 			var bf = new BufferedReader(new InputStreamReader(System.in));
 
-			System.out.println(String.format(this.INTRO, TIMED_OUT_USER_INPUT.getTimeOutValue()));
+//			System.out.println(String.format(this.INTRO, TIMED_OUT_USER_INPUT.getTimeOutValue()));
 			
 			try {
 				while (!bf.ready()) {
@@ -52,11 +52,7 @@ public class GuessTheNatoWord {
 		String inputWord;
 		System.out.printf("What is the word for %c (type exit to exit): ", WORD_MANAGER.getCorrectWordSymbol());
 
-		try {
-			inputWord = TIMED_OUT_USER_INPUT.getTimedOutUserInput();
-		} catch (IOException e) {
-			inputWord = "exit";
-		}
+		inputWord = "a";
 
 		return inputWord;
 
