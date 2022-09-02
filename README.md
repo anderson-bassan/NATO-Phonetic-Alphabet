@@ -66,5 +66,8 @@ $ java -cp target\NATOPhoneticAlphabet-3.1-RELEASE.jar com.nato.Main
 
 ## TODO
 
+* add translation to Portuguese and German
+* add time out to the guess game
 * add database of highest scores
-* implement GUI
+* add a NATO translator
+* add a "Translate the NATO phrase game"
