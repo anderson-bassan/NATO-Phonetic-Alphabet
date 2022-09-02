@@ -4,12 +4,22 @@ package com.nato;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class NATOPhoneticAlphabet {
-    private HashMap<Character, String> natoPhoneticAlphabet = new HashMap<Character, String>();
-	
+    private HashMap<Character, String> natoPhoneticAlphabet = new HashMap<>();
+	private Random randomGenerator;
+	private char randomChar, previousRandomChar, correctSymbol;
+	private String correctWord;
+
 	public NATOPhoneticAlphabet() {
+		this.randomGenerator = new Random();
+		this.previousRandomChar = '`';
+		this.randomChar = '`';
+		this.correctSymbol = '`';
+		this.correctWord = "";
+
 		// sets the initial values for the map
 		
 		natoPhoneticAlphabet.put('a', "alpha");
@@ -70,5 +80,55 @@ public class NATOPhoneticAlphabet {
 	
 	public void removeByKey(char key) {
 		natoPhoneticAlphabet.remove(key);
+	}
+
+	public void generateRandomChar() {
+		int randomSymbolIndex = randomGenerator.nextInt(getKeys().size());
+		randomChar = getKeys().get(randomSymbolIndex);
+
+		if (getSize() >= 2) {
+			if (previousRandomChar == (char) randomChar - 1) {
+				generateRandomChar();
+
+			} else if (previousRandomChar == (char) randomChar + 1) {
+				generateRandomChar();
+
+			} else if (previousRandomChar == randomChar){
+				generateRandomChar();
+
+			} else {
+				previousRandomChar = randomChar;
+			}
+
+		} else {
+			previousRandomChar = randomChar;
+
+		}
+	}
+
+	public char getRandom() {
+		return randomChar;
+	}
+
+	public void generateCorrect() {
+		generateRandomChar();
+		correctSymbol = getRandom();
+		correctWord = getByKey(correctSymbol);
+	}
+
+	public String getCorrectWord() {
+		return correctWord;
+	}
+
+	public char getCorrectWordSymbol() {
+		return correctSymbol;
+	}
+
+	public void removeCorrectWord() {
+		removeByKey(correctSymbol);
+	}
+
+	public boolean isEmpty() {
+		return (getSize() == 0);
 	}
 }
