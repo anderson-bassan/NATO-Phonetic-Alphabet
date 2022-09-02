@@ -7,42 +7,77 @@ public class GuessTheNatoWordController {
     private final GuessTheNatoWordViewer viewer;
     private final GuessTheNatoWordModel model;
     private Future<?> future;
+    private ExecutorService executor;
+
+
+    private final IntroEnterListener introEnterListener;
 
     GuessTheNatoWordController(GuessTheNatoWordViewer viewer, GuessTheNatoWordModel model) {
         this.viewer = viewer;
         this.model = model;
 
+        this.introEnterListener = new IntroEnterListener();
+
         viewer.addWordInputListener(new WordInputSelected());
         viewer.addGuessButtonClickListener(new GuessWordButtonClicked());
         viewer.addEnterPressedListener(new EnterPressedListener());
+        viewer.addIntroEnterListener(introEnterListener);
     }
 
-    void run() {
-//        viewer.setIntro(model.getIntroMessage());
-//        viewer.showIntro();
-//        model.waitForNSeconds(5);
+
+    /* Utilities */
+
+
+    void start() {
+        viewer.setIntro(model.getIntroMessage());
+        viewer.showIntro();
+    }
+
+    void loadGuessWordPanel() {
+        setRandomWord();
         viewer.setGuessWordPanel();
-        // function to set a timed task to get the user input
-        // but if the user press enter or clicks cancel the task
         viewer.showGuessWordPanel();
-//        viewer.setWinPanel();
-//        viewer.showWinPanel();
-//        viewer.setLosePanel();
-//        viewer.showLosePanel();
-//        viewer.setTimeOverPanel();
-//        viewer.showTimeOverPanel();
-
-        ExecutorService executor = Executors.newFixedThreadPool(3);
-
-        try {
-            this.future = executor.submit(new TimedOutUserInput(viewer));
-
-        } finally {
-            executor.shutdown();
-
-        }
     }
 
+    public void setRandomWord() {
+        model.generateCorrect();
+        viewer.showTip(model.getCorrectChar());
+    }
+
+    private boolean guess() {
+        model.setUserInput(viewer.getGuessWord());
+        viewer.clearWordInput();
+
+        if (model.isCorrectByFuzzyMatch(model.getUserInput(), model.getCorrectWord())) {
+            viewer.showCorrectWordMessage();
+            model.increasePoints();
+            model.removeCorrectWord();
+
+        } else {
+            viewer.showWrongWordMessage(model.getCorrectWord());
+            model.decreasePoints();
+        }
+
+        viewer.updatePoints(model.getPoints());
+
+        if (model.noWordsLeft()) {
+            viewer.setWinPanel(model.getPoints());
+            viewer.showWinPanel();
+            return false; // stop guessing
+        }
+
+        if (model.getPoints() == 0 ) {
+            viewer.setLosePanel();
+            viewer.showLosePanel();
+            return false;
+        }
+
+        setRandomWord();
+        return true;
+    }
+
+
+    /* event listeners for the controller */
     class WordInputSelected implements FocusListener {
 
         @Override
@@ -60,9 +95,7 @@ public class GuessTheNatoWordController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("word: " + viewer.getGuessWord());
-            viewer.clearWordInput();
-            future.cancel(true);
+            guess();
         }
     }
 
@@ -75,9 +108,27 @@ public class GuessTheNatoWordController {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == 10) {
-                System.out.println("word: " + viewer.getGuessWord());
-                viewer.clearWordInput();
-                future.cancel(true);
+                guess();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+    }
+
+    class IntroEnterListener implements KeyListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == 10) {
+                loadGuessWordPanel();
+                viewer.removeIntroEnterListener(introEnterListener);
             }
         }
 

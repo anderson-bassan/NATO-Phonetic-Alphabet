@@ -2,22 +2,64 @@ package com.nato;
 
 public class GuessTheNatoWordModel {
     private final MessageManager messageManager;
+    private boolean awaitUserInput;
+    private String userInput;
+    private NATOPhoneticAlphabet nato;
+    private final ScoreBoard scoreBoard;
+    private final LevenshteinDistanceAlgorithm levAlgorithm;
 
     public GuessTheNatoWordModel() {
         this.messageManager = new MessageManager();
-    }
-
-    public void waitForNSeconds(int seconds) {
-        try {
-            Thread.sleep(seconds * 1000);
-
-        } catch (InterruptedException e) {
-            System.out.println("Something went wrong while showing the intro. Exiting...");
-            System.exit(0);
-        }
+        this.nato = new NATOPhoneticAlphabet();
+        this.scoreBoard = new ScoreBoard();
+        this.levAlgorithm = new LevenshteinDistanceAlgorithm(2);
     }
 
     public String getIntroMessage() {
         return messageManager.INTRO_MESSAGE;
+    }
+
+    public void setUserInput(String input) {
+        userInput = input;
+    }
+
+    public String getUserInput() {
+        return userInput;
+    }
+
+    public void generateCorrect() {
+        nato.generateCorrect();
+    }
+
+    public String getCorrectWord() {
+        return nato.getCorrectWord();
+    }
+
+    public char getCorrectChar() {
+        return nato.getCorrectWordSymbol();
+    }
+
+    public boolean noWordsLeft() {
+        return (nato.isEmpty());
+    }
+
+    public void removeCorrectWord() {
+        nato.removeCorrectWord();
+    }
+
+    public void increasePoints() {
+        scoreBoard.increasePoints();
+    }
+
+    public void decreasePoints() {
+        scoreBoard.decreasePoints();
+    }
+
+    public int getPoints() {
+        return scoreBoard.getPoints();
+    }
+
+    public boolean isCorrectByFuzzyMatch(String guess, String correct) {
+        return levAlgorithm.isCorrectByFuzzyMatch(guess, correct);
     }
 }

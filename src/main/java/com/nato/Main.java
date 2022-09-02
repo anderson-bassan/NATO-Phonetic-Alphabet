@@ -13,6 +13,6 @@ public class Main {
 		var guessTheNatoWordModel = new GuessTheNatoWordModel();
 		var guessTheNatoWordController = new GuessTheNatoWordController(guessTheNatoWordViewer, guessTheNatoWordModel);
 
-		guessTheNatoWordController.run();
+		guessTheNatoWordController.start();
 	}
 }

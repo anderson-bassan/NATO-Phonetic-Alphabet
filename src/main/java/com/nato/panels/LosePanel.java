@@ -1,4 +1,4 @@
-package com.nato;
+package com.nato.panels;
 
 import javax.swing.*;
 

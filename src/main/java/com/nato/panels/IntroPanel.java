@@ -1,12 +1,13 @@
-package com.nato;
+package com.nato.panels;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class IntroPanel extends JPanel {
     public final JLabel introMessage;
 
-    IntroPanel() {
+    public IntroPanel() {
         this.introMessage = new JLabel();
     }
 
