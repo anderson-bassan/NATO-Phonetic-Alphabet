@@ -1,5 +1,10 @@
 package com.nato;
 
+import com.nato.utilities.LevenshteinDistanceAlgorithm;
+import com.nato.utilities.MessageManager;
+import com.nato.utilities.NATOPhoneticAlphabet;
+import com.nato.utilities.ScoreBoard;
+
 public class GuessTheNatoWordModel {
     private final MessageManager messageManager;
     private boolean awaitUserInput;
