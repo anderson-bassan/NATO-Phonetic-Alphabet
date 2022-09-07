@@ -14,6 +14,7 @@ public class GuessTheNatoWordViewer extends JFrame {
     private final GuessWordPanel guessWordPanel;
     private final WinPanel winPanel;
     private final LosePanel losePanel;
+    private String currentPanel;
 
     public GuessTheNatoWordViewer() {
         /* layout */
@@ -24,6 +25,7 @@ public class GuessTheNatoWordViewer extends JFrame {
         this.guessWordPanel = new GuessWordPanel(this);
         this.winPanel = new WinPanel(this);
         this.losePanel = new LosePanel(this);
+        this.currentPanel = "";
 
         /* set the main frame */
         setFrame();
@@ -31,6 +33,8 @@ public class GuessTheNatoWordViewer extends JFrame {
 
 
     /* set panels */
+
+
     public void setIntro(String INTRO_MESSAGE) {
         introPanel.set(INTRO_MESSAGE);
         add(introPanel, "intro panel");
@@ -43,39 +47,49 @@ public class GuessTheNatoWordViewer extends JFrame {
 
     public void setWinPanel(int points) {
         winPanel.set(points);
-        add(winPanel, "win");
+        add(winPanel, "win panel");
     }
 
 
     public void setLosePanel() {
         losePanel.set();
-        add(losePanel, "lose");
+        add(losePanel, "lose panel");
     }
 
 
     /* show panels */
+
+
     public void showIntro() {
+        currentPanel = "intro panel";
         cards.show(this.getContentPane(), "intro panel");
     }
 
     public void showGuessWordPanel() {
+        currentPanel = "guess word panel";
         cards.show(this.getContentPane(), "guess word panel");
     }
 
     public void showLosePanel() {
-        cards.show(this.getContentPane(), "lose");
+        currentPanel = "lose panel";
+        cards.show(this.getContentPane(), "lose panel");
     }
 
     public void showWinPanel() {
-        cards.show(this.getContentPane(), "win");
+        cards.show(this.getContentPane(), "win panel");
     }
 
     public void showTimeOverPanel() {
-        cards.show(this.getContentPane(), "time over");
+        cards.show(this.getContentPane(), "time over panel");
     }
 
 
     /* guess word viewer utilities */
+
+
+    public String getCurrentPanel() {
+        return currentPanel;
+    }
     public String getGuessInput() {
         return guessWordPanel.getGuessWord();
     }
@@ -100,7 +114,10 @@ public class GuessTheNatoWordViewer extends JFrame {
         guessWordPanel.updatePoints(points);
     }
 
+
     /* listeners */
+
+
     public void addIntroEnterListener(KeyListener listener) {
         addKeyListener(listener);
     }
@@ -127,8 +144,8 @@ public class GuessTheNatoWordViewer extends JFrame {
         setType(Type.UTILITY);
         setLayout(cards);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setExtendedState(this.getState() | JFrame.MAXIMIZED_BOTH);
-        setSize(1024, 800);
+        setExtendedState(this.getState() | JFrame.MAXIMIZED_BOTH); // maximize the window screen
+//        setSize(1024, 800);
         setLocationRelativeTo(null);
         setVisible(true);
     }
