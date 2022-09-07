@@ -4,13 +4,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
-import java.util.EventListener;
 
 public class GuessWordPanel extends JPanel {
-    private final JFrame parent;
+    private final JFrame parentFrame;
     private final JTextField wordInput;
     private final JLabel wordLabel;
     private final JLabel scoreLabel;
@@ -19,15 +17,23 @@ public class GuessWordPanel extends JPanel {
     private final JLabel wrongFeedbackMessage;
     private final JButton guessButton;
     public GuessWordPanel(JFrame parent) {
-        this.parent = parent;
-        this.wordInput = new JTextField("hi");
+        this.parentFrame = parent;
+
+        this.wordInput = new JTextField("type your guess here");
         this.wordLabel = new JLabel();
+
         this.scoreLabel = new JLabel("score");
         this.scorePoints = new JLabel("00");
+
         this.correctFeedbackMessage = new JLabel();
         this.wrongFeedbackMessage = new JLabel();
+
         this.guessButton = new JButton("GUESS");
     }
+
+
+    /* SETTINGS */
+
 
     private void setWordInput() {
         wordInput.setBounds(this.getWidth() / 2 - 100, this.getHeight() / 2 , 200, 30);
@@ -72,7 +78,7 @@ public class GuessWordPanel extends JPanel {
 
     public void setSelf() {
         setLayout(null);
-        this.setSize(parent.getSize());
+        this.setSize(parentFrame.getSize());
     }
 
     public void set() {
@@ -86,25 +92,28 @@ public class GuessWordPanel extends JPanel {
         setGuessButton();
     }
 
-    public void addWordInputListener(FocusListener listener) {
+
+    /* LISTENERS */
+
+
+    public void addWordInputFocusedListener(FocusListener listener) {
         wordInput.addFocusListener(listener);
     }
 
     public void addGuessButtonClickListener(ActionListener listener) {
         guessButton.addActionListener(listener);
     }
-
-    public String getGuessWord() {
-        return wordInput.getText();
-    }
-
-    public void clearWordInput() {
-        wordInput.setText("");
+    public void addEnterPressedListener(KeyListener listener) {
+        wordInput.addKeyListener(listener);
     }
 
     public void showTip(char correctChar) {
         wordLabel.setText(String.format("What is the correct word for %c?", correctChar));
     }
+
+
+    /* VISUAL UPDATES */
+
 
     public void showCorrectWordMessage() {
         correctFeedbackMessage.setVisible(true);
@@ -124,7 +133,16 @@ public class GuessWordPanel extends JPanel {
         scorePoints.setText(String.format("%02d", points));
     }
 
-    public void addEnterPressedListener(KeyListener listener) {
-        wordInput.addKeyListener(listener);
+
+    /* UTILITIES */
+
+
+    public String getGuessWord() {
+        return wordInput.getText();
     }
+
+    public void clearWordInput() {
+        wordInput.setText("");
+    }
+
 }

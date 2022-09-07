@@ -24,7 +24,7 @@ public class LevenshteinDistanceAlgorithm {
 
         int lev1, lev2, lev3;
 
-        // verify that there's no null paramethers
+        // verify that there's no null parameters
         if (string1 == null || string2 == null) {
             throw new NullPointerException("calculateDistance paramethers can't be null");
 

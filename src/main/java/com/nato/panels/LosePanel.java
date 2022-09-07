@@ -16,7 +16,6 @@ public class LosePanel extends JPanel {
         setLayout(null);
 
         youLoseMessage.setBounds(getWidth() / 2, getHeight() / 2, 80, 20);
-
         add(youLoseMessage);
     }
 }

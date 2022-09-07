@@ -33,20 +33,14 @@ public class GuessTheNatoWordController {
         viewer.showIntro();
     }
 
-    void loadGuessWordPanel() {
-        setRandomWord();
-        viewer.setGuessWordPanel();
-        viewer.showGuessWordPanel();
-    }
-
     public void setRandomWord() {
         model.generateCorrect();
         viewer.showTip(model.getCorrectChar());
     }
 
     private boolean guess() {
-        model.setUserInput(viewer.getGuessWord());
-        viewer.clearWordInput();
+        model.setUserInput(viewer.getGuessInput());
+        viewer.clearGuessInput();
 
         if (model.isCorrectByFuzzyMatch(model.getUserInput(), model.getCorrectWord())) {
             viewer.showCorrectWordMessage();
@@ -77,12 +71,21 @@ public class GuessTheNatoWordController {
     }
 
 
+    /* UTILITIES */
+
+
+    void loadGuessWordPanel() {
+        setRandomWord();
+        viewer.setGuessWordPanel();
+        viewer.showGuessWordPanel();
+    }
+
     /* event listeners for the controller */
     class WordInputSelected implements FocusListener {
 
         @Override
         public void focusGained(FocusEvent e) {
-            viewer.clearWordInput();
+            viewer.clearGuessInput();
         }
 
         @Override

@@ -18,7 +18,10 @@ public class WinPanel extends JPanel {
         this.parent = parent;
         this.pointsMessage = new JLabel("Your final score was:");
         this.points = new JLabel("00");
+        this.image = getBufferedImage();
+    }
 
+    public JLabel getBufferedImage() {
         BufferedImage trophyImage;
 
         try {
@@ -27,27 +30,43 @@ public class WinPanel extends JPanel {
             trophyImage = new BufferedImage(1, 1, 1);
         }
 
-        this.image = new JLabel(new ImageIcon(trophyImage));
+        return new JLabel(new ImageIcon(trophyImage));
     }
 
-    public void set(int finalScore) {
+    private void setSelf() {
         setLayout(null);
         setSize(parent.getSize());
         setBackground(Color.white);
+    }
 
+    private void setWinMessage() {
         winMessage.setBounds(this.getWidth() / 2 - 120, this.getHeight() / 10, 280, 20);
         winMessage.setFont(new Font("Dialog", Font.BOLD, 20));
         winMessage.setForeground(Color.decode("#058E3F"));
         add(winMessage);
+    }
 
+    private void setScorePointsLabel() {
         pointsMessage.setBounds(this.getWidth() / 2 - 50, this.getHeight() / 2 + 100, 120, 20);
         add(pointsMessage);
+    }
 
+    private void setScorePoints(int finalScore) {
         points.setBounds(this.getWidth() / 2, this.getHeight() / 2 + 120, 40, 20);
         points.setText(String.format("%02d", finalScore));
         add(points);
+    }
 
+    private void setImage() {
         image.setBounds(this.getWidth() / 2 - 200, this.getHeight() / 2 - 300, 400, 400);
         add(image);
+    }
+
+    public void set(int finalScore) {
+        setSelf();
+        setWinMessage();
+        setScorePointsLabel();
+        setScorePoints(finalScore);
+        setImage();
     }
 }

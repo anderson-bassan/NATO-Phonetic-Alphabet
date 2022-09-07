@@ -65,7 +65,7 @@ public class NATOPhoneticAlphabet {
 	}
 	
 	public List<Character> getKeys() {
-		List<Character> keys = new ArrayList<Character>();
+		List<Character> keys = new ArrayList<>();
 		keys.addAll(natoPhoneticAlphabet.keySet());
 		return keys;
 	}
@@ -86,7 +86,7 @@ public class NATOPhoneticAlphabet {
 		int randomSymbolIndex = randomGenerator.nextInt(getKeys().size());
 		randomChar = getKeys().get(randomSymbolIndex);
 
-		if (getSize() >= 2) {
+		if (getSize() > 3) {
 			if (previousRandomChar == (char) randomChar - 1) {
 				generateRandomChar();
 

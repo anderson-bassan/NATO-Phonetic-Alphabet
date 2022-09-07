@@ -76,11 +76,11 @@ public class GuessTheNatoWordViewer extends JFrame {
 
 
     /* guess word viewer utilities */
-    public String getGuessWord() {
+    public String getGuessInput() {
         return guessWordPanel.getGuessWord();
     }
 
-    public void clearWordInput() {
+    public void clearGuessInput() {
         guessWordPanel.clearWordInput();
     }
 
@@ -109,7 +109,7 @@ public class GuessTheNatoWordViewer extends JFrame {
         removeKeyListener(listener);
     }
     public void addWordInputListener(FocusListener listener) {
-        guessWordPanel.addWordInputListener(listener);
+        guessWordPanel.addWordInputFocusedListener(listener);
     }
 
     public void addGuessButtonClickListener(ActionListener listener) {
