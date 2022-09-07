@@ -1,4 +1,4 @@
-package com.nato;
+package com.nato.utilities;
 
 public class MessageManager {
     public final String INTRO_MESSAGE;

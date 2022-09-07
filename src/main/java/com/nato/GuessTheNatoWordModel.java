@@ -1,5 +1,10 @@
 package com.nato;
 
+import com.nato.utilities.LevenshteinDistanceAlgorithm;
+import com.nato.utilities.MessageManager;
+import com.nato.utilities.NATOPhoneticAlphabet;
+import com.nato.utilities.ScoreBoard;
+
 public class GuessTheNatoWordModel {
     private final MessageManager messageManager;
     private boolean awaitUserInput;
@@ -19,6 +24,11 @@ public class GuessTheNatoWordModel {
         return messageManager.INTRO_MESSAGE;
     }
 
+
+    /* USER INPUT INTERFACE */
+
+
+
     public void setUserInput(String input) {
         userInput = input;
     }
@@ -26,6 +36,10 @@ public class GuessTheNatoWordModel {
     public String getUserInput() {
         return userInput;
     }
+
+
+    /* RANDOM GENERATOR INTERFACE */
+
 
     public void generateCorrect() {
         nato.generateCorrect();
@@ -39,13 +53,16 @@ public class GuessTheNatoWordModel {
         return nato.getCorrectWordSymbol();
     }
 
+    public void removeCorrectWord() {
+        nato.removeCorrectWord();
+    }
     public boolean noWordsLeft() {
         return (nato.isEmpty());
     }
 
-    public void removeCorrectWord() {
-        nato.removeCorrectWord();
-    }
+
+    /* POINTS INTERFACE */
+
 
     public void increasePoints() {
         scoreBoard.increasePoints();
@@ -58,6 +75,7 @@ public class GuessTheNatoWordModel {
     public int getPoints() {
         return scoreBoard.getPoints();
     }
+
 
     public boolean isCorrectByFuzzyMatch(String guess, String correct) {
         return levAlgorithm.isCorrectByFuzzyMatch(guess, correct);

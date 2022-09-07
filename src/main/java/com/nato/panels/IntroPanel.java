@@ -12,8 +12,9 @@ public class IntroPanel extends JPanel {
     }
 
     public void set(String INTRO_MESSAGE) {
-        this.introMessage.setText(INTRO_MESSAGE);
+        this.introMessage.setText(INTRO_MESSAGE); // sets a label content to the received text
         this.add(introMessage);
+
         this.setLayout(new GridBagLayout());
     }
 }
