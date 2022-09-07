@@ -35,7 +35,7 @@ public class GuessTheNatoWordViewer extends JFrame {
     /* set panels */
 
 
-    public void setIntro(String INTRO_MESSAGE) {
+    public void setIntroPanel(String INTRO_MESSAGE) {
         introPanel.set(INTRO_MESSAGE);
         add(introPanel, "intro panel");
     }
@@ -60,7 +60,7 @@ public class GuessTheNatoWordViewer extends JFrame {
     /* show panels */
 
 
-    public void showIntro() {
+    public void showIntroPanel() {
         currentPanel = "intro panel";
         cards.show(this.getContentPane(), "intro panel");
     }
@@ -76,6 +76,7 @@ public class GuessTheNatoWordViewer extends JFrame {
     }
 
     public void showWinPanel() {
+        currentPanel = "win panel";
         cards.show(this.getContentPane(), "win panel");
     }
 

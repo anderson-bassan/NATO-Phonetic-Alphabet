@@ -29,8 +29,8 @@ public class GuessTheNatoWordController {
 
 
     void start() {
-        viewer.setIntro(model.getIntroMessage());
-        viewer.showIntro();
+        viewer.setIntroPanel(model.getIntroMessage());
+        viewer.showIntroPanel();
     }
 
     public void setRandomWord() {
