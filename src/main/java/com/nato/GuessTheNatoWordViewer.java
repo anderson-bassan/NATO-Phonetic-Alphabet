@@ -131,11 +131,11 @@ public class GuessTheNatoWordViewer extends JFrame {
     /* listeners */
 
 
-    public void addIntroEnterListener(KeyListener listener) {
+    public void addNextPanelEnterListener(KeyListener listener) {
         addKeyListener(listener);
     }
 
-    public void removeIntroEnterListener(KeyListener listener) {
+    public void removeNextPanelEnterListener(KeyListener listener) {
         removeKeyListener(listener);
     }
     public void addWordInputListener(FocusListener listener) {
