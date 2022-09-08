@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 public class GuessTheNatoWordViewer extends JFrame {
     private final CardLayout cards;
     private final IntroPanel introPanel;
+    private final NatoPhoneticAlphabetPanel natoPanel;
     private final GuessWordPanel guessWordPanel;
     private final WinPanel winPanel;
     private final LosePanel losePanel;
@@ -22,6 +23,7 @@ public class GuessTheNatoWordViewer extends JFrame {
 
         /* panels */
         this.introPanel = new IntroPanel();
+        this.natoPanel = new NatoPhoneticAlphabetPanel(this);
         this.guessWordPanel = new GuessWordPanel(this);
         this.winPanel = new WinPanel(this);
         this.losePanel = new LosePanel(this);
@@ -38,6 +40,11 @@ public class GuessTheNatoWordViewer extends JFrame {
     public void setIntroPanel(String INTRO_MESSAGE) {
         introPanel.set(INTRO_MESSAGE);
         add(introPanel, "intro panel");
+    }
+
+    public void setPhoneticAlphabetPanel() {
+        natoPanel.set();
+        add(natoPanel, "nato panel");
     }
 
     public void setGuessWordPanel() {
@@ -63,6 +70,11 @@ public class GuessTheNatoWordViewer extends JFrame {
     public void showIntroPanel() {
         currentPanel = "intro panel";
         cards.show(this.getContentPane(), "intro panel");
+    }
+
+    public void showPhoneticAlphabetPanel() {
+        currentPanel = "nato panel";
+        cards.show(this.getContentPane(), "nato panel");
     }
 
     public void showGuessWordPanel() {
